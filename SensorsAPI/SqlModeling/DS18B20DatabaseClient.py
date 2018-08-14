@@ -3,6 +3,7 @@ from .createDS18B20Model import create_engine
 from .createDS18B20Model import db_directory
 
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 import datetime
 import time
@@ -12,12 +13,15 @@ class DS18B20DatabaseClient:
     def __init__(self):
         self.engine = create_engine(db_directory)
         Base.metadata.bind = self.engine
-        DBSession = sessionmaker(bind=self.engine)
-        self.session = DBSession()
+        self.DBSession = sessionmaker(bind=self.engine)
+        self.session = scoped_session(self.DBSession)
 
     def push_data(self, params):
         if not isinstance(params, list):
             raise AttributeError("Wrong argument has been given params argument is not a list")
+
+        push_session = self.DBSession()
+
         for reading in params:
 
             _reading = reading['reading']
@@ -34,8 +38,9 @@ class DS18B20DatabaseClient:
 
             self.session.add(new_data_push)
             self.session.commit()
+            self.session.close()
 
-    def select_data(self, param=None, where_sql_query=None):
+    def select_data(self, param=None, where_sql_query=None, additional_list=None):
         if param is None:
             param = "*"
 
@@ -44,7 +49,8 @@ class DS18B20DatabaseClient:
 
         result = []
         sql_query = "SELECT " + param + " FROM ds18b20_readings " + where_sql_query
-        db_result = self.session.execute(sql_query).fetchall()
+
+        db_result = self.session.execute(sql_query, additional_list).fetchall()
 
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
@@ -57,6 +63,8 @@ class DS18B20DatabaseClient:
             i_json['temperature'] = db_result[i][4]
 
             result.append(i_json)    
+
+        print(sql_query)
         return result
 
     def select_distinct(self, column_name):

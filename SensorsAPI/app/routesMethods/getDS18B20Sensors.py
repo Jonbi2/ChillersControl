@@ -21,10 +21,10 @@ def get_connected_sensors(not_jsonified=None):
         if result is []:
             result = ds18b20_DbClient.select_distinct("sensor_id")
             return jsonify({'error': 'no device is currently connected, historical data will be retuned', 'result': result})
-    if not_jsonified is None:
-        return jsonify({'result': result})
-    else:
-        return result
+        if not_jsonified is None:
+            return jsonify({'result': result})
+        else:
+            return result
 
     result = ds18b20_DbClient.select_distinct("sensor_id")
     if not_jsonified is None:
