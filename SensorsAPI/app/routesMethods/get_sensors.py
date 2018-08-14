@@ -26,4 +26,6 @@ def get_sensors():
     ds18b20 = {'name': name, 'sensors_list': sensors_list, 'route': route, 'params': params}
     sensors['sensors'].append(ds18b20)
 
+    print(sensors)
+
     return jsonify(sensors)
