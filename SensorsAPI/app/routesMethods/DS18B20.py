@@ -19,7 +19,7 @@ def ds18b20_get_data(device_id=None ,time_range_begin=None, time_range_end=None)
         return result
 
     if time_range_begin is None and time_range_end is None:
-        result = ds18b20_DbClient.session.execute("SELECT * FROM ds18b20_readings WHERE 'device_id'=?", [device_id])
+        result = ds18b20_DbClient.session.execute("SELECT * FROM ds18b20_readings WHERE 'device_id'=(?)", [device_id])
         # result = ds18b20_DbClient.select_data("*", "WHERE sensor_id = " + str(device_id))
         result = jsonify(str(result))
         return result
