@@ -1,4 +1,4 @@
-from getDS18B20Sensors import get_connected_sensors as fetch_all_ds18b20
+from .getDS18B20Sensors import get_connected_sensors as fetch_all_ds18b20
 
 from flask import jsonify
 
