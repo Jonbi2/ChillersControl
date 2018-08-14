@@ -10,3 +10,4 @@ pip3 install flask
 pip3 install flask_restful
 pip3 install multitasking
 pip3 install w1thermsensor
+pip3 install flask_cors

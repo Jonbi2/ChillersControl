@@ -13,10 +13,11 @@ except:
 def get_connected_sensors():
     if is_any_device_recognized:
         devices = w1thermsensor.W1ThermSensor.get_available_sensors()
+
         result = []
         for sensor in devices:
             result.append(sensor.id)
         result = jsonify(result)
-        return result
+        return jsonify({'result': devices})
     result = ds18b20_DbClient.select_distinct("sensor_id")
     return jsonify({'error': 'no device is currently connected, historical data will be retuned', 'result': result})
