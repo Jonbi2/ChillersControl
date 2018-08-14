@@ -19,13 +19,11 @@ def get_sensors():
     # DS18B20
 
     name = 'ds18b20'
-    sensors_list = fetch_all_ds18b20()
+    sensors_list = fetch_all_ds18b20(True)
     route = '/ds18b20/get_data'
     params = {'id': 'sensor_id', 'time_range_begin': 'timestamp', 'time_range_end': 'timestamp'}
 
     ds18b20 = {'name': name, 'sensors_list': sensors_list, 'route': route, 'params': params}
     sensors['sensors'].append(ds18b20)
-
-    print(sensors)
 
     return jsonify(sensors)

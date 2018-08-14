@@ -10,7 +10,7 @@ except:
     is_any_device_recognized = False
 
 
-def get_connected_sensors():
+def get_connected_sensors(not_jsonified=None):
     if is_any_device_recognized:
         devices = w1thermsensor.W1ThermSensor.get_available_sensors()
 
@@ -23,6 +23,9 @@ def get_connected_sensors():
             return jsonify({'error': 'no device is currently connected, historical data will be retuned', 'result': result})
         
         return jsonify({'result': result})
-        
+
     result = ds18b20_DbClient.select_distinct("sensor_id")
-    return jsonify({'error': 'no device is currently connected, historical data will be retuned', 'result': result})
+    if not_jsonified is None:
+        return jsonify({'error': 'no device is currently connected, historical data will be retuned', 'result': result})
+    else:
+        return result
