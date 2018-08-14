@@ -1,0 +1,12 @@
+# Electron app dependencies
+
+electronApp/node_modules/
+electronApp/yarn.lock
+
+# Sensors Data Collecting
+
+SensorsAPI/*.db
+
+# virtualanv
+
+venv/
