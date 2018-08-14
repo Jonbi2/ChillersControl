@@ -24,9 +24,6 @@ def micro_dmp_680():
 def ds18b20():
     sensor_id = request.args.get('sensor_id')
 
-    if sensor_id is None:
-        return jsonify({'error': 'sensor_id is not specified'})
-
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_begin_end')
     return ds18b20_get_data(sensor_id, time_range_begin, time_range_end)
