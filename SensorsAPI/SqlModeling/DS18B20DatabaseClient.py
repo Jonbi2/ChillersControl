@@ -13,14 +13,12 @@ class DS18B20DatabaseClient:
     def __init__(self):
         self.engine = create_engine(db_directory)
         Base.metadata.bind = self.engine
-        self.DBSession = sessionmaker(bind=self.engine)
-        self.session = scoped_session(self.DBSession)
+        db_session = sessionmaker(bind=self.engine)
+        self.session = scoped_session(db_session)
 
     def push_data(self, params):
         if not isinstance(params, list):
             raise AttributeError("Wrong argument has been given params argument is not a list")
-
-        push_session = self.DBSession()
 
         for reading in params:
 
@@ -65,6 +63,9 @@ class DS18B20DatabaseClient:
             result.append(i_json)    
 
         print(sql_query)
+
+        self.session.commit()
+        self.session.close()
         return result
 
     def select_distinct(self, column_name):
@@ -73,6 +74,12 @@ class DS18B20DatabaseClient:
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])[i]
             db_result[i] = ''.join(db_result[i])
+
+        self.session.commit()
+        self.session.close()
+        print(sql_query)
         return db_result
+
+
 ds18b20_DbClient = DS18B20DatabaseClient()
 

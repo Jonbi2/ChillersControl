@@ -1,1 +1,0 @@
-https://github.com/timofurrer/w1thermsensor

@@ -3,6 +3,7 @@ from .createMicroDpm680Model import microDpm680Readings, Base
 from .createMicroDpm680Model import db_directory
 
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 import datetime
 import time
@@ -12,8 +13,8 @@ class MicroDpm680_DbClient:
     def __init__(self):
         self.engine = create_engine(db_directory)
         Base.metadata.bind = self.engine
-        DBSession = sessionmaker(bind=self.engine)
-        self.session = DBSession()
+        db_session = sessionmaker(bind=self.engine)
+        self.session = scoped_session(db_session)
 
     def push_data(self, params):
         if not isinstance(params, dict):
@@ -98,6 +99,7 @@ class MicroDpm680_DbClient:
 
         self.session.add(new_data_push)
         self.session.commit()
+        self.session.close()
 
     def select_data(self, param=None, where_sql_query=None):
         if param is None:
@@ -157,8 +159,13 @@ class MicroDpm680_DbClient:
 
             i_json['Freq'] = db_result[i][32]
 
-            result.append(i_json)    
+            result.append(i_json)  
+
+        print(sql_query)
+        self.session.commit()
+        self.session.close()
         return result
+    
 
 
 microDpm680_DbClient = MicroDpm680_DbClient()

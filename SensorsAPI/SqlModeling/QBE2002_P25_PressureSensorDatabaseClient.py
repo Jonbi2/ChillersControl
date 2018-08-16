@@ -3,6 +3,7 @@ from .createQBE2002_P25_PressureSensorModel import create_engine
 from .createQBE2002_P25_PressureSensorModel import db_directory
 
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 import datetime
 import time
@@ -11,8 +12,8 @@ class QBE2002P25DatabaseClient:
     def __init__(self):
         self.engine = create_engine(db_directory)
         Base.metadata.bind = self.engine
-        DBSession = sessionmaker(bind=self.engine)
-        self.session = DBSession()
+        db_session = sessionmaker(bind=self.engine)
+        self.session = scoped_session(db_session)
 
     def push_data(self, params):
         if not isinstance(params, dict):
@@ -32,6 +33,7 @@ class QBE2002P25DatabaseClient:
 
         self.session.add(new_data_push)
         self.session.commit()
+        self.session.close()
 
     def select_data(self, param=None, where_sql_query=None):
         if param is None:
@@ -54,7 +56,11 @@ class QBE2002P25DatabaseClient:
             i_json['sensor_id'] = db_result[i][3]
             i_json['pressure'] = db_result[i][4]
 
-            result.append(i_json)    
+            result.append(i_json) 
+
+        print(sql_query)
+        self.session.commit()
+        self.session.close()
         return result 
 
 
