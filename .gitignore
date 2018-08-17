@@ -5,7 +5,12 @@ electronApp/yarn.lock
 
 # Sensors Data Collecting
 
-SensorsAPI/*.db
+bolidLab_readings.db
+
+# Python cache
+
+__pycache__
+.pyc
 
 # virtualanv
 
