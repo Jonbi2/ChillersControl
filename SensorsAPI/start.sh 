@@ -1,1 +1,3 @@
+#!/bin/bash
+
 python3 start_sensors.py & python3 start_rest.py
