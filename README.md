@@ -1,13 +1,11 @@
-#Run the App
+# Hello!
 
-#To run the app you need to follow this steps
+# This program will allow You to use our data collecting device, based on RaspberryPi. It useses temperature sensors(DS18B20), flowmeters(F300A), pressure sensors(QBE2002_P25 by Siemens) and a power sensor(microDPM680). You can connect as many temperature sesnors, flowmeters, pressure sensors as You can fit on Your raspberry!
 
-#1. Clone the repo to your local reposotory
-#2. Once it's cloned you need to run the install.sh script inside of the cloned path it should be dummysandbox/
-#3. After this step run the following command : pwd
-#4. Then copy the output of the upper command
-#5. Then type inside the path of the pwd output python3 start_sensors.py
-#6. Next open a new terminal session and make sure that you're still the same directory then before
-#7. Then type source venv/bin/activate
-#8. After all type python3 start_rest.py
-#9. Enjoy
+# First, connect Your sensors as shown in the electric diagram. Remember which pins You use on the raspberry
+
+# State which pins You connect each sensor to in the config.json file
+
+# Now, just run the bash scrip "start.sh", it will start up the rest API and it will start collecting data from all the connected sensors!
+
+# That's it! Your database is ready and collecting data in real time. Just type in Your raspberry IP and the 5000 port and all the records will appear! You can experiment with some SQL requests too if You want

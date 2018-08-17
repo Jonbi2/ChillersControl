@@ -1,4 +1,4 @@
-from .createFlowMeterModel import Base, DS18B20Readings
+from .createFlowMeterModel import Base, FlowMeterReadings
 from .createFlowMeterModel import create_engine
 from .createFlowMeterModel import db_directory
 

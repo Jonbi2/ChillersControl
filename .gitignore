@@ -10,7 +10,7 @@ bolidLab_readings.db
 # Python cache
 
 __pycache__
-.pyc
+*.pyc
 
 # virtualanv
 

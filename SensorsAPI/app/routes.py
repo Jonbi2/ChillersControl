@@ -1,6 +1,5 @@
 from flask_restful import Resource, Api
 from flask import request
-from flask import jsonify
 
 from . import app
 
@@ -8,6 +7,7 @@ from .routesMethods.microDpm680 import micro_dmp_680_get_data
 from .routesMethods.DS18B20 import ds18b20_get_data
 from .routesMethods.getDS18B20Sensors import get_connected_sensors as fetch_all_ds18b20
 from .routesMethods.get_sensors import get_sensors as fetch_all_sensors
+from .routesMethods.parametersTicker import get_parameters_ticker
 
 
 @app.route('/getSensors', methods=['GET'])
@@ -31,3 +31,7 @@ def ds18b20():
 @app.route('/get_connected_ds18b20', methods=['GET'])
 def get_connected_ds18b20():
     return fetch_all_ds18b20()
+
+@app.route('/parametersTicker.json', methods=['GET'])
+def parameters_ticker():
+    return get_parameters_ticker()
