@@ -2,15 +2,7 @@ import time
 from time import sleep
  
 import RPi.GPIO as GPIO
- 
-# init LED pwm
-LED = 17
- 
-GPIO.setup(LED, GPIO.OUT)
- 
-pwm_LED = GPIO.PWM(LED, 100)
-pwm_LED.start(0)
- 
+
  
 # freely chosen SPI pins
 SPICLK = 36  # BOARD 36
