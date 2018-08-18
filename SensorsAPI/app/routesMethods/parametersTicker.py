@@ -7,16 +7,14 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 import time
 import datetime
-import json
 
 
 def get_parameters_ticker():
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
-              'temperature_on_compressor_output': None,
-              'temperature_on_condenser_input': None,
-              'temperature_on_condenser_output': None,
-              'liquid_freon_temperature_on_input': None, 
+              'flow': flow_meter_DbClient.select_data()[0].reading,
+              'power_usage': None,
+              'temperature': None, 
               'freons_temperature_on_compressor_output': None,
               'vapor_temperature_on_compressor_input': None,
               'temperature_inside_the_container': None,
