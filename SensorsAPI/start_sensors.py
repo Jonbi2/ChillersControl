@@ -37,7 +37,7 @@ def start_measurments():
 
         # Flow meters handling impulses to value converting
         for flow_meter in flow_meters:
-            flow_meter_DbClient.push(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
+            flow_meter_DbClient.push_data(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
 
 
 start_measurments()

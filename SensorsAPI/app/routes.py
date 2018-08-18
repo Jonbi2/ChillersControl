@@ -22,7 +22,7 @@ def micro_dmp_680():
     return micro_dmp_680_get_data(time_range_begin, time_range_end)
 
 @app.route('/flow_meter/get_data', methods=['GET'])
-def ds18b20():
+def flow_meter():
     sensor_id = request.args.get('sensor_id')
 
     time_range_begin = request.args.get('time_range_begin')
