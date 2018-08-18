@@ -230,13 +230,13 @@ class MicroDpm680PowerDbClient:
         Xvarh2 = params['Xvarh2']
         Xvarh3 = params['Xvarh3']
 
-        IVah1 = params['IVah1']
-        IVah2 = params['IVah2']
-        IVah3 = params['IVah3']
+        IVah1 = params['IVAh1']
+        IVah2 = params['IVAh2']
+        IVah3 = params['IVAh3']
 
-        XVah1 = params['XVah1']
-        XVah2 = params['XVah2']
-        XVah3 = params['XVah3']
+        XVah1 = params['XVAh1']
+        XVah2 = params['XVAh2']
+        XVah3 = params['XVAh3']
 
         dpf1 = params['dpf1']
         dpf2 = params['dpf2']
