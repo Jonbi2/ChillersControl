@@ -58,7 +58,7 @@ class FlowMeterDatabaseClient:
             i_json['date'] = db_result[i][2]
 
             i_json['sensor_id'] = db_result[i][3]
-            i_json['temperature'] = db_result[i][4]
+            i_json['reading'] = db_result[i][4]
 
             result.append(i_json)    
 
