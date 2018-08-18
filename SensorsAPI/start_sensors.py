@@ -12,24 +12,33 @@ from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
-while True: 
-    # Micro Dmp680 handling
-    microDpm680_DbClient.push_data(get_micro_dpm680_data())
+def start_measurments():
+    while True: 
+        # Micro Dmp680 handling
+        microDpm680_DbClient.push_data(get_micro_dpm680_data())
 
-    # DS18B20 temperatire sensors handling 
-    ds18b20_DbClient.push_data(get_ds18b20_data())
+        # DS18B20 temperatire sensors handling 
+        try:
+            ds18b20_DbClient.push_data(get_ds18b20_data())
+        except RuntimeError as error:
+            print(error)
+            time.sleep(1)
+            start_measurments()
 
-    # Flow meters handling start counting impulses
-    flow_meters_counting_start_time = time.time()
-    for flow_meter in flow_meters:
-        flow_meter.start_counting()
+        # Flow meters handling start counting impulses
+        flow_meters_counting_start_time = time.time()
+        for flow_meter in flow_meters:
+            flow_meter.start_counting()
 
-    # Measurement countdown
-    print(termcolor.colored("Data pushed successfully", "yellow"))
-    for i in tqdm(range(100)):
-        time.sleep(0.1)
+        # Measurement countdown
+        print(termcolor.colored("Data pushed successfully", "yellow"))
+        for i in tqdm(range(100)):
+            time.sleep(0.1)
 
-    # Flow meters handling impulses to value converting
-    for flow_meter in flow_meters:
-        flow_meter_DbClient.push(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
+        # Flow meters handling impulses to value converting
+        for flow_meter in flow_meters:
+            flow_meter_DbClient.push(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
+
+
+start_measurments()
 
