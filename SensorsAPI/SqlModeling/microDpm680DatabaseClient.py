@@ -209,10 +209,10 @@ class MicroDpm680PowerDbClient:
         varh3 = params['varh3']
         varh4 = params['varh4']
 
-        Vah1 = params['Vah1']
-        Vah2 = params['Vah2']
-        Vah3 = params['Vah3']
-        Vah4 = params['Vah4']
+        Vah1 = params['VAh1']
+        Vah2 = params['VAh2']
+        Vah3 = params['VAh3']
+        Vah4 = params['VAh4']
 
         IWh1 = params['IWh1']
         IWh2 = params['IWh2']
