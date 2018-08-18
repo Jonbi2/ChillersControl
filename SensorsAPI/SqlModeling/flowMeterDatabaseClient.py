@@ -27,7 +27,7 @@ class FlowMeterDatabaseClient:
             _date = datetime.datetime.now()
             _timestamp = int(round(time.time()))
 
-            new_data_push = DS18B20Readings(
+            new_data_push = FlowMeterReadings(
                 timestamp=_timestamp,
                 date=_date,
                 sensor_id=_sensor_id,
