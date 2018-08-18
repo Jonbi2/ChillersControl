@@ -297,7 +297,7 @@ class MicroDpm680PowerDbClient:
 
         varh1=varh1,
         varh2=varh2,
-        varh3=varh3
+        varh3=varh3,
         varh4=varh4,
 
         Vah1=Vah1,
