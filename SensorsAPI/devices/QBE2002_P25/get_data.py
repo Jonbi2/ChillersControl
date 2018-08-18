@@ -2,8 +2,6 @@ import time
 from time import sleep
  
 import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BCM)
  
 # init LED pwm
 LED = 17
@@ -15,10 +13,10 @@ pwm_LED.start(0)
  
  
 # freely chosen SPI pins
-SPICLK = 16  # BOARD 36
-SPIMISO = 19  # BOARD 35
-SPIMOSI = 20  # BOARD 38
-SPICS = 25  # BOARD 22
+SPICLK = 36  # BOARD 36
+SPIMISO = 35  # BOARD 35
+SPIMOSI = 38  # BOARD 38
+SPICS = 22  # BOARD 22
  
 # set up the SPI interface pins
 GPIO.setup([SPIMOSI, SPICLK, SPICS], GPIO.OUT)
