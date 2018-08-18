@@ -3,23 +3,38 @@ from flask import request
 
 from . import app
 
-from .routesMethods.microDpm680 import micro_dmp_680_get_data
+from .routesMethods.microDpm680 import micro_dmp_680_get_voltages_data, micro_dmp_680_get_powers_data
 from .routesMethods.DS18B20 import ds18b20_get_data
 from .routesMethods.getDS18B20Sensors import get_connected_sensors as fetch_all_ds18b20
 from .routesMethods.get_sensors import get_sensors as fetch_all_sensors
 from .routesMethods.parametersTicker import get_parameters_ticker
 from .routesMethods.flowMeter import flow_meter_get_data
+from .routesMethods.QBE2002_P25 import qbe2002_p25_get_data
 
 
 @app.route('/getSensors', methods=['GET'])
 def get_sensors():
     return fetch_all_sensors()
 
-@app.route('/micro_dmp_680/get_data', methods=['GET'])
-def micro_dmp_680():
+@app.route('/qbe2002_p25/get_data')
+def pressure_sensor():
+    sensor_id = request.args.get('sensor_id')
+
+    time_range_begin = request.args.get('time_range_begin')
+    time_range_end = request.args.get('time_begin_end')
+    return qbe2002_p25_get_data(sensor_id, time_range_begin, time_range_end)
+
+@app.route('/micro_dmp_680_currents/get_data', methods=['GET'])
+def micro_dmp_680_currents():
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_range_end')
-    return micro_dmp_680_get_data(time_range_begin, time_range_end)
+    return micro_dmp_680_get_voltages_data(time_range_begin, time_range_end)
+
+@app.route('/micro_dmp_680_powers/get_data', methods=['GET'])
+def micro_dmp_680_powers():
+    time_range_begin = request.args.get('time_range_begin')
+    time_range_end = request.args.get('time_range_end')
+    return micro_dmp_680_get_powers_data(time_range_begin, time_range_end)
 
 @app.route('/flow_meter/get_data', methods=['GET'])
 def flow_meter():

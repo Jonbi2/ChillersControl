@@ -8,6 +8,7 @@ from devices.microDpm680.getPowers import get_micro_dpm680_powers_data
 
 from devices.DS18B20.getData import get_ds18b20_data
 from devices.flowMeter.getData import flow_meters
+from devices.QBE2002_P25.get_data import pressure_sensors
 
 from SqlModeling.microDpm680DatabaseClient import microDpm680_voltage_and_currents_DbClient, microDpm680_powers_DbClient
 from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
@@ -34,6 +35,8 @@ def start_measurments():
             flow_meter.start_counting()
 
         # QBE Pressure Sensor handling
+        for pressure_sensor in pressure_sensors:
+            qbe2002p25_DbClient.push_data(pressure_sensor.get_qbe2002_p25_data())
 
         # Measurement countdown
         print(termcolor.colored("Pushing Data ...", "yellow"))
