@@ -17,8 +17,8 @@ class FlowMeterDatabaseClient:
         self.session = scoped_session(db_session)
 
     def push_data(self, params):
-        if not isinstance(params, dict):
-            raise AttributeError("Wrong argument has been given params argument is not a dict")
+        if not isinstance(params, list):
+            raise AttributeError("Wrong argument has been given params argument is not a list")
 
         for reading in params:
 
