@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
-from SqlModeling.microDpm680DatabaseClient import microDpm680_DbClient
+from SqlModeling.microDpm680DatabaseClient import microDpm680_powers_DbClient, microDpm680_voltage_and_currents_DbClient
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
