@@ -17,7 +17,7 @@ class FlowMeter:
         # Used for checking how many falling edges come from the device in a time period
         self.count = 0
 
-        GPIO.add_event_detect(pin_connected, GPIO.FALLING, callback=count_pulse)
+        GPIO.add_event_detect(pin_connected, GPIO.FALLING, callback=self.count_pulse)
 
     def count_pulse(self, callback):
         self.count = self.count + 1
