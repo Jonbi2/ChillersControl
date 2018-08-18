@@ -19,7 +19,7 @@ def start_measurments():
     while True: 
         # Micro Dmp680 handling
         microDpm680_voltage_and_currents_DbClient.push_data(get_micro_dpm68_voltages_and_currents_data())
-        microDpm680_powers_DbClient.push_data(get_micro_dpm680_powers_data())
+        # microDpm680_powers_DbClient.push_data(get_micro_dpm680_powers_data())
 
         # DS18B20 temperatire sensors handling 
         try:

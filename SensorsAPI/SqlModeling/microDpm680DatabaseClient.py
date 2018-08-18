@@ -1,5 +1,5 @@
 from .createMicroDpm680Model import create_engine
-from .createMicroDpm680Model import MicroDpm680CurrentAndVoltageReadings, MicroDpm680PowerReadings, Base
+from .createMicroDpm680Model import MicroDpm680CurrentAndVoltageReadings,MicroDpm680PowerReadings, Base
 from .createMicroDpm680Model import db_directory
 
 from sqlalchemy.orm import sessionmaker
@@ -18,8 +18,7 @@ class MicroDpm680VoltageAndCurrentsDbClient:
 
     def push_data(self, params):
         if not isinstance(params, dict):
-            raise AttributeError(
-                "Wrong argument has been given params argument is not a dictionary")
+            raise AttributeError("Wrong argument has been given params argument is not a dictionary")
 
         date = datetime.datetime.now()
         timestamp = int(round(time.time()))
@@ -65,38 +64,38 @@ class MicroDpm680VoltageAndCurrentsDbClient:
         freq = params['freq']
 
         new_data_push = MicroDpm680CurrentAndVoltageReadings(
-            date=date,
-            timestamp=timestamp,
-            Us1=us1,
-            Us2=us2,
-            Us3=us3,
-            Ud1=ud1,
-            Ud2=ud2,
-            Ud3=ud3,
-            Up1=up1,
-            Up2=up2,
-            Up3=up3,
-            I1=i1,
-            I2=i2,
-            I3=i3,
-            I4=i4,
-            Ip1=ip1,
-            Ip2=ip2,
-            Ip3=ip3,
-            Ip4=ip4,
-            Ic1=ic1,
-            Ic2=ic2,
-            Ic3=ic3,
-            Uc1=uc1,
-            Uc2=uc2,
-            Uc3=uc3,
-            ITh1=iTh1,
-            ITh2=iTh2,
-            ITh3=iTh3,
-            UTh1=uTh1,
-            UTh2=uTh2,
-            UTh3=uTh3,
-            Freq=freq)
+        date=date,
+        timestamp=timestamp,
+        Us1=us1,
+        Us2=us2,
+        Us3=us3, 
+        Ud1=ud1, 
+        Ud2=ud2, 
+        Ud3=ud3, 
+        Up1=up1, 
+        Up2=up2, 
+        Up3=up3, 
+        I1=i1, 
+        I2=i2, 
+        I3=i3, 
+        I4=i4, 
+        Ip1=ip1, 
+        Ip2=ip2, 
+        Ip3=ip3, 
+        Ip4=ip4,
+        Ic1=ic1, 
+        Ic2=ic2, 
+        Ic3=ic3, 
+        Uc1=uc1, 
+        Uc2=uc2, 
+        Uc3=uc3, 
+        ITh1=iTh1, 
+        ITh2=iTh2, 
+        ITh3=iTh3, 
+        UTh1=uTh1, 
+        UTh2=uTh2, 
+        UTh3=uTh3, 
+        Freq=freq)
 
         self.session.add(new_data_push)
         self.session.commit()
@@ -110,8 +109,7 @@ class MicroDpm680VoltageAndCurrentsDbClient:
             where_sql_query = ""
 
         result = []
-        sql_query = "SELECT " + param + \
-            " FROM micro_dpm680_voltage_and_currents_readings " + where_sql_query
+        sql_query = "SELECT " + param + " FROM micro_dpm680_voltage_and_currents_readings " + where_sql_query
         db_result = self.session.execute(sql_query).fetchall()
 
         for i in range(len(db_result) - 1, -1, -1):
@@ -161,7 +159,7 @@ class MicroDpm680VoltageAndCurrentsDbClient:
 
             i_json['Freq'] = db_result[i][32]
 
-            result.append(i_json)
+            result.append(i_json)  
 
         print(sql_query)
         self.session.commit()
@@ -181,8 +179,7 @@ class MicroDpm680PowerDbClient:
 
     def push_data(self, params):
         if not isinstance(params, dict):
-            raise AttributeError(
-                "Wrong argument has been given params argument is not a dictionary")
+            raise AttributeError("Wrong argument has been given params argument is not a dictionary")
 
         date = datetime.datetime.now()
         timestamp = int(round(time.time()))
@@ -276,94 +273,96 @@ class MicroDpm680PowerDbClient:
         Pdp3 = params['Pdp3']
 
         new_data_push = MicroDpm680VoltageAndCurrentsDbClient(
-            date=date,
-            timestamp=timestamp,
-            p1=p1,
-            p2=p2,
-            p3=p3,
-            p4=p4,
+        date=date,
+        timestamp=timestamp,
+        p1=p1,
+        p2=p2,
+        p3=p3,
+        p4=p4,
 
-            q1=q1,
-            q2=q2,
-            q3=q3,
-            q4=q4,
+        q1=q1,
+        q2=q2,
+        q3=q3,
+        q4=q4,
 
-            s1=s1,
-            s2=s2,
-            s3=s3,
-            s4=s4,
+        s1=s1,
+        s2=s2,
+        s3=s3,
+        s4=s4,
 
-            Wh1=Wh1,
-            Wh2=Wh2,
-            Wh3=Wh3,
-            Wh4=Wh4,
+        Wh1=Wh1,
+        Wh2=Wh2,
+        Wh3=Wh3,
+        Wh4=Wh4,
 
-            varh2=varh2,
-            varh3=varh3,
-            varh4=varh4,
+        varh1=varh1,
+        varh2=varh2,
+        varh3=varh3,
+        varh4=varh4,
 
-            Vah1=Vah1,
-            Vah2=Vah2,
-            Vah3=Vah3,
-            Vah4=Vah4,
+        Vah1=Vah1,
+        Vah2=Vah2,
+        Vah3=Vah3,
+        Vah4=Vah4,
 
-            IWh1=IWh1,
-            IWh2=IWh2,
-            IWh3=IWh3,
+        IWh1=IWh1,
+        IWh2=IWh2,
+        IWh3=IWh3,
 
-            XWh1=XWh1,
-            XWh2=XWh2,
-            XWh3=XWh3,
+        XWh1=XWh1,
+        XWh2=XWh2,
+        XWh3=XWh3,
 
-            Ivarh1=Ivarh1,
-            Ivarh2=Ivarh2,
-            Ivarh3=Ivarh3,
+        Ivarh1=Ivarh1,
+        Ivarh2=Ivarh2,
+        Ivarh3=Ivarh3,
 
-            Xvarh1=Xvarh1,
-            Xvarh2=Xvarh2,
-            Xvarh3=Xvarh3,
+        Xvarh1= Xvarh1,
+        Xvarh2=Xvarh2,
+        Xvarh3=Xvarh3,
 
-            IVah1=IVah1,
-            IVah2=IVah2,
-            IVah3=IVah3,
+        IVah1=IVah1,
+        IVah2=IVah2,
+        IVah3=IVah3,
 
-            XVah1=XVah1,
-            XVah2=XVah2,
-            XVah3=XVah3,
+        XVah1=XVah1,
+        XVah2=XVah2,
+        XVah3=XVah3,
 
-            dpf1=dpf1,
-            dpf2=dpf2,
-            dpf3=dpf3,
+        dpf1=dpf1,
+        dpf2=dpf2,
+        dpf3=dpf3,
 
-            ddpf1=ddpf1,
-            ddpf2=ddpf2,
-            ddpf3=ddpf3,
+        ddpf1= ddpf1,
+        ddpf2=ddpf2,
+        ddpf3=ddpf3,
 
-            tpf1=tpf1,
-            tpf2=tpf2,
-            tpf3=tpf3,
-            tpf4=tpf4,
+        tpf1=tpf1,
+        tpf2=tpf2,
+        tpf3=tpf3,
+        tpf4=tpf4,
 
-            dtpf1=dtpf1,
-            dtpf2=dtpf2,
-            dtpf3=dtpf3,
-            dtpf4=dtpf4,
+        dtpf1=dtpf1,
+        dtpf2=dtpf2,
+        dtpf3=dtpf3,
+        dtpf4=dtpf4,
 
-            Id1=Id1,
-            Id2=Id2,
-            Id3=Id3,
+        Id1=Id1,
+        Id2=Id2,
+        Id3=Id3,
 
-            Idp1=Idp1,
-            Idp2=Idp2,
-            Idp3=Idp3,
+        Idp1=Idp1,
+        Idp2=Idp2,
+        Idp3=Idp3,
 
-            Pd1=Pd1,
-            Pd2=Pd2,
-            Pd3=Pd3,
+        Pd1=Pd1,
+        Pd2=Pd2,
+        Pd3=Pd3,
 
-            Pdp1=Pdp1,
-            Pdp2=Pdp2,
-            Pdp3=Pdp3)
+        Pdp1=Pdp1,
+        Pdp2=Pdp2,
+        Pdp3=Pdp3)
+
 
         self.session.add(new_data_push)
         self.session.commit()
@@ -377,8 +376,7 @@ class MicroDpm680PowerDbClient:
             where_sql_query = ""
 
         result = []
-        sql_query = "SELECT " + param + \
-            " FROM micro_dpm680_voltage_and_currents_readings " + where_sql_query
+        sql_query = "SELECT " + param + " FROM micro_dpm680_voltage_and_currents_readings " + where_sql_query
         db_result = self.session.execute(sql_query).fetchall()
 
         for i in range(len(db_result) - 1, -1, -1):
@@ -457,11 +455,11 @@ class MicroDpm680PowerDbClient:
             i_json['tpf3'] = db_result[i][53]
             i_json['tpf4'] = db_result[i][54]
             i_json['dtpf1'] = db_result[i][55]
-
+            
             i_json['dtpf2'] = db_result[i][56]
             i_json['dtpf3'] = db_result[i][57]
             i_json['dtpf4'] = db_result[i][58]
-
+            
             i_json['Idp1'] = db_result[i][59]
             i_json['Idp2'] = db_result[i][60]
             i_json['Idp3'] = db_result[i][61]
@@ -474,13 +472,21 @@ class MicroDpm680PowerDbClient:
             i_json['Pdp2'] = db_result[i][66]
             i_json['Pdp3'] = db_result[i][67]
 
-            result.append(i_json)
+            result.append(i_json)  
 
         print(sql_query)
         self.session.commit()
         self.session.close()
         return result
+    
 
 
 microDpm680_voltage_and_currents_DbClient = MicroDpm680VoltageAndCurrentsDbClient()
 microDpm680_powers_DbClient = MicroDpm680PowerDbClient()
+
+
+
+        
+
+
+
