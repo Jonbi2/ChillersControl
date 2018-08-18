@@ -351,7 +351,7 @@ class MicroDpm680PowerDbClient:
         Id2=Id2,
         Id3=Id3,
 
-        Idp1=Ipd1,
+        Idp1=Idp1,
         Idp2=Idp2,
         Idp3=Idp3,
 
