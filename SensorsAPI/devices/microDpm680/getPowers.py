@@ -2,11 +2,7 @@ import requests
 import xmltodict
 import json
 import time
-import termcolor
 
-from tqdm import tqdm
-
-from SqlModeling.microDpm680DatabaseClient import microDpm680_DbClient
 
 def get_micro_dpm680_powers_data():
     xml_response = requests.get('http://192.168.1.101/status1.xml').text

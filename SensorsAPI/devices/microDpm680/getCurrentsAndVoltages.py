@@ -6,8 +6,6 @@ import termcolor
 
 from tqdm import tqdm
 
-from SqlModeling.microDpm680DatabaseClient import microDpm680_powers_DbClient, microDpm680_voltage_and_currents_DbClient
-
 def get_micro_dpm68_voltages_and_currents_data():
     xml_response = requests.get('http://192.168.1.101/status.xml').text
     response_json = json.dumps(xmltodict.parse(xml_response))
