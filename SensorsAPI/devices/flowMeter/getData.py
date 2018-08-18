@@ -28,7 +28,7 @@ class FlowMeter:
     def get_data(self, time_passed):
         # start_counting must be called beforehand and time between the two must be measured and put in here for get_data to work properly
         value = self.count/time_passed/5.5
-        result = {'reading': value, 'sensor_id': self.id}
+        result = [{'reading': value, 'sensor_id': self.id}]
         return result
 
 

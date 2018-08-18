@@ -31,13 +31,15 @@ def start_measurments():
             flow_meter.start_counting()
 
         # Measurement countdown
-        print(termcolor.colored("Data pushed successfully", "yellow"))
+        print(termcolor.colored("Pushing Data ...", "yellow"))
         for i in tqdm(range(100)):
             time.sleep(0.1)
 
         # Flow meters handling impulses to value converting
         for flow_meter in flow_meters:
             flow_meter_DbClient.push_data(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
+
+        print(termcolor.colored("Data pushed successfully", "yellow"))
 
 
 start_measurments()
