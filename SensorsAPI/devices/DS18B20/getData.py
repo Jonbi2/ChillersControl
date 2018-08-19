@@ -3,7 +3,11 @@ import xmltodict
 import json
 import time
 import termcolor
-import w1thermsensor 
+
+try:
+    import w1thermsensor 
+except:
+    print("Kernel is not configured to use 1wire protocol")
 
 from tqdm import tqdm
 

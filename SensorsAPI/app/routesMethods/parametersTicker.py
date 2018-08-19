@@ -10,9 +10,15 @@ import datetime
 
 
 def get_parameters_ticker():
+
+    try:
+        flow = flow_meter_DbClient.select_data()[0].reading
+    except IndexError:
+        flow = None
+
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
-              'flow': flow_meter_DbClient.select_data()[0].reading,
+              'flow': flow,
               'power_usage': None,
               'temperature': None, 
               'freons_temperature_on_compressor_output': None,

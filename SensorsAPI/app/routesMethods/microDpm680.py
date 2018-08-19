@@ -1,47 +1,98 @@
 from SqlModeling.microDpm680DatabaseClient import microDpm680_voltage_and_currents_DbClient, microDpm680_powers_DbClient
-from flask import jsonify
+from flask import jsonify, send_file
+
+import csv
+import io
 
 import time
 
 
-def micro_dmp_680_get_voltages_data(time_range_begin=None, time_range_end=None):
+def micro_dmp_680_get_voltages_data(time_range_begin=None, time_range_end=None, is_result_csv=None):
     if time_range_begin is int and time_range_end is int:  # timestamp is int !
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(time_range_end)
         result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
-        result = jsonify(result)
-        return result
 
-    if time_range_begin is None and time_range_end is None:
+    elif time_range_begin is None and time_range_end is None:
         result = microDpm680_voltage_and_currents_DbClient.select_data()
-        result = jsonify(result)
-        return result
 
-    if time_range_end is None:
+    elif time_range_end is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
         result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
+
+    else:
+        return jsonify({'error': 'wrong arguments have been given'})
+
+    if is_result_csv is not True:
         result = jsonify(result)
-        return result
 
-    return jsonify({'error': 'wrong arguments have been given'})
+    else:
+        print("executed")
+        rows_list = []
+        for json in result:
+            rows_list.append(list(json.values()))
 
-def micro_dmp_680_get_powers_data(time_range_begin=None, time_range_end=None):
+        proxy = io.StringIO()
+
+        writer = csv.writer(proxy)
+        for row in rows_list:
+            writer.writerow(row)
+
+        mem = io.BytesIO()
+        mem.write(proxy.getvalue().encode('utf-8'))
+        mem.seek(0)
+        proxy.close()
+
+        result = send_file(
+            mem,
+            as_attachment=True,
+            attachment_filename='microDmp680VoltagesAndCurrents.csv',
+            mimetype='text/csv'
+        )
+
+    return result
+
+
+def micro_dmp_680_get_powers_data(time_range_begin=None, time_range_end=None, is_result_csv=None):
     if time_range_begin is int and time_range_end is int:  # timestamp is int !
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(time_range_end)
         result =  microDpm680_powers_DbClient.select_data("*", where_query)
-        result = jsonify(result)
-        return result
 
-    if time_range_begin is None and time_range_end is None:
+    elif time_range_begin is None and time_range_end is None:
         result = microDpm680_powers_DbClient.select_data()
-        result = jsonify(result)
-        return result
 
-    if time_range_end is None:
+    elif time_range_end is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
         result =  microDpm680_powers_DbClient.select_data("*", where_query)
-        result = jsonify(result)
-        return result
 
-    return jsonify({'error': 'wrong arguments have been given'})
+    else:
+        return jsonify({'error': 'wrong arguments have been given'})
+
+    if is_result_csv is not True:
+        result = jsonify(result)
+
+    else:
+        rows_list = []
+        for json in result:
+            rows_list.append(list(json.values()))
+
+        proxy = io.StringIO()
+
+        writer = csv.writer(proxy)
+        for row in rows_list:
+            writer.writerow(row)
+
+        mem = io.BytesIO()
+        mem.write(proxy.getvalue().encode('utf-8'))
+        mem.seek(0)
+        proxy.close()
+
+        result = send_file(
+            mem,
+            as_attachment=True,
+            attachment_filename='microDmp680Powers.csv',
+            mimetype='text/csv'
+        )
+
+    return result
 
     

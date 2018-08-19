@@ -22,19 +22,34 @@ def pressure_sensor():
 
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_begin_end')
-    return qbe2002_p25_get_data(sensor_id, time_range_begin, time_range_end)
+
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True
+
+    return qbe2002_p25_get_data(sensor_id, time_range_begin, time_range_end, csv)
 
 @app.route('/micro_dmp_680_currents/get_data', methods=['GET'])
 def micro_dmp_680_currents():
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_range_end')
-    return micro_dmp_680_get_voltages_data(time_range_begin, time_range_end)
+
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True
+
+    return micro_dmp_680_get_voltages_data(time_range_begin, time_range_end, csv)
 
 @app.route('/micro_dmp_680_powers/get_data', methods=['GET'])
 def micro_dmp_680_powers():
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_range_end')
-    return micro_dmp_680_get_powers_data(time_range_begin, time_range_end)
+
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True
+        
+    return micro_dmp_680_get_powers_data(time_range_begin, time_range_end, csv)
 
 @app.route('/flow_meter/get_data', methods=['GET'])
 def flow_meter():
@@ -42,7 +57,12 @@ def flow_meter():
 
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_begin_end')
-    return flow_meter_get_data(sensor_id, time_range_begin, time_range_end)
+
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True
+        
+    return flow_meter_get_data(sensor_id, time_range_begin, time_range_end, csv)
 
 @app.route('/ds18b20/get_data', methods=['GET'])
 def ds18b20():
@@ -50,7 +70,12 @@ def ds18b20():
 
     time_range_begin = request.args.get('time_range_begin')
     time_range_end = request.args.get('time_begin_end')
-    return ds18b20_get_data(sensor_id, time_range_begin, time_range_end)
+
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True
+        
+    return ds18b20_get_data(sensor_id, time_range_begin, time_range_end, csv)
 
 @app.route('/get_connected_ds18b20', methods=['GET'])
 def get_connected_ds18b20():

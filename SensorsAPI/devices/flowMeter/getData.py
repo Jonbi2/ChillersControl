@@ -1,13 +1,21 @@
 from threading import Thread
 
-import RPi.GPIO as GPIO
 import time, sys
 import datetime
+
+is_GPIO_recognized = True
+
+try:
+    import RPi.GPIO as GPIO
+except:
+    print("No GPIO pins have been detected")
+    is_GPIO_recognized = False
+
 
 class FlowMeter:
 
     def __init__(self, pin_connected):
-        self.id = 3  # TODO
+        self.id = 1  # TODO
         self.pin = pin_connected
 
         # Use GPIO.BOARD - standard mapping
@@ -31,5 +39,6 @@ class FlowMeter:
         result = [{'reading': value, 'sensor_id': self.id}]
         return result
 
-
-flow_meters = [FlowMeter(40)]
+if is_GPIO_recognized:
+    flow_meters = [FlowMeter(40)]
+flow_meters = []

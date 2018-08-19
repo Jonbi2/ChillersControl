@@ -1,8 +1,17 @@
 import time
 from time import sleep
  
-import RPi.GPIO as GPIO
 
+is_GPIO_recognized = True
+
+try:
+        import RPi.GPIO as GPIO
+        # set up the SPI interface pins
+        GPIO.setup([SPIMOSI, SPICLK, SPICS], GPIO.OUT)
+        GPIO.setup(SPIMISO, GPIO.IN)
+except:
+        print("No GPIO pins have been detected")
+        is_GPIO_recognized = False
  
 # freely chosen SPI pins
 SPICLK = 36  # BOARD 36
@@ -10,9 +19,6 @@ SPIMISO = 35  # BOARD 35
 SPIMOSI = 38  # BOARD 38
 SPICS = 22  # BOARD 22
  
-# set up the SPI interface pins
-GPIO.setup([SPIMOSI, SPICLK, SPICS], GPIO.OUT)
-GPIO.setup(SPIMISO, GPIO.IN)
 
 # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
 def readadc(adcnum, clockpin, mosipin, misopin, cspin):
@@ -65,5 +71,6 @@ class QBE2002P25PressureSensor:
         result = {'reading': trim_pot * 25.0 / 1024.0, 'sensor_id': 1}
         return result
 
-
-pressure_sensors = [QBE2002P25PressureSensor(0)]
+if is_GPIO_recognized:
+        pressure_sensors = [QBE2002P25PressureSensor(0)]
+pressure_sensors = []
