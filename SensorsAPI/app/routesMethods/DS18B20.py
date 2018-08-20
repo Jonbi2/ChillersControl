@@ -36,7 +36,7 @@ def ds18b20_get_data(device_id=None ,time_range_begin=None, time_range_end=None,
         print(is_result_csv)
 
     else:
-        rows_list = []
+        rows_list = [list(result[0].keys())]
         for json in result:
             rows_list.append(list(json.values()))
 
