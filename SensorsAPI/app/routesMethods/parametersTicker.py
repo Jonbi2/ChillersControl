@@ -18,6 +18,7 @@ def get_parameters_ticker():
     try:
         power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
     except IndexError:
+        print(microDpm680_powers_DbClient.select_data())
         power_usage = None
     try:
         temperature = ds18b20_DbClient.select_data()[0]['temperature']
