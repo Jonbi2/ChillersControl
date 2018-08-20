@@ -16,17 +16,31 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 import time
 import datetime
 
+import random
+import requests
+
+params_dict = {}
 
 def get_parameters_ticker():
 
-    flow = flow_meter_DbClient.select_data()[0]['reading']
-    power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
-    temperature = ds18b20_DbClient.select_data()[0]['temperature']
+    # flow = flow_meter_DbClient.select_data()[0]['reading']
+    # power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
+    # temperature = ds18b20_DbClient.select_data()[0]['temperature']
+
+    variable = random.randint(10, 99)
+
+    sensors = requests.get('http://localhost:5000/get_connected_ds18b20').json()['result']
+    temperatures = {}
+
+    for sensor_temperature in sensors:
+        temperatures[sensor_temperature] = ds18b20_DbClient.select_data('*', "WHERE sensor_id=" + '"' + str(sensor_temperature) + '"')[0]['temperature']
+    
+    print(temperatures)
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
-              't_zb': None,
-              't_ot': None,
+              't_zb': variable,
+              't_ot': temperatures[list(temperatures.keys())[0]],
               't_p1': None, 
               't_p2': None,
               't_p3': None,

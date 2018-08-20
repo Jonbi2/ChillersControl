@@ -15,6 +15,8 @@ from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
+from app.routesMethods.parametersTicker import params_dict
+
 
 temperatures = None
 flows = None
@@ -63,5 +65,4 @@ def start_measurments():
         print(termcolor.colored("Data pushed successfully", "yellow"))
 
 
-start_measurments()
-
+params_dict['temperature'] = 10

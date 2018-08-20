@@ -35,7 +35,10 @@ def ds18b20_get_data(device_id=None ,time_range_begin=None, time_range_end=None,
         result = jsonify(result)
 
     else:
-        rows_list = [list(result[0].keys())]
+        try:
+            rows_list = [list(result[0].keys())]
+        except IndexError:
+            rows_list = []
         for json in result:
             rows_list.append(list(json.values()))
 

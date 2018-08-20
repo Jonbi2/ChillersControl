@@ -30,7 +30,10 @@ def micro_dmp_680_get_voltages_data(device_id=None, time_range_begin=None, time_
         result = jsonify(result)
 
     else:
-        rows_list = [list(result[0].keys())]
+        try:
+            rows_list = [list(result[0].keys())]
+        except IndexError:
+            rows_list = []
         for json in result:
             rows_list.append(list(json.values()))
 
@@ -78,7 +81,10 @@ def micro_dmp_680_get_powers_data(device_id=None, time_range_begin=None, time_ra
         result = jsonify(result)
 
     else:
-        rows_list = [list(result[0].keys())]
+        try:
+            rows_list = [list(result[0].keys())]
+        except IndexError:
+            rows_list = []
         for json in result:
             rows_list.append(list(json.values()))
 
