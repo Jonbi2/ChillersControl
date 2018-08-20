@@ -374,7 +374,7 @@ class MicroDpm680PowerDbClient:
             where_sql_query = ""
 
         result = []
-        sql_query = "SELECT " + param + " FROM micro_dpm680_voltage_and_currents_readings " + where_sql_query
+        sql_query = "SELECT " + param + " FROM micro_dpm680_power_readings " + where_sql_query
         db_result = self.session.execute(sql_query).fetchall()
 
         print(db_result[0])
