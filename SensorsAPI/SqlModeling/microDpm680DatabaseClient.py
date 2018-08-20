@@ -161,7 +161,6 @@ class MicroDpm680VoltageAndCurrentsDbClient:
 
             result.append(i_json)  
 
-        print(sql_query)
         self.session.commit()
         self.session.close()
         return result
@@ -362,7 +361,6 @@ class MicroDpm680PowerDbClient:
         Pdp1 = Pdp1,
         Pdp2 = Pdp2,
         Pdp3 = Pdp3)
-
 
         self.session.add(new_data_push)
         self.session.commit()

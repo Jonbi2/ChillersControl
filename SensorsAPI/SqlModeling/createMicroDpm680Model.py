@@ -118,9 +118,9 @@ class MicroDpm680PowerReadings(Base):
     dpf2 = Column(Float, nullable=False)
     dpf3 = Column(Float, nullable=False)
 
-    ddpf1 = Column(Float, nullable=False)
-    ddpf2 = Column(Float, nullable=False)
-    ddpf3 = Column(Float, nullable=False)
+    ddpf1 = Column(String, nullable=False)
+    ddpf2 = Column(String, nullable=False)
+    ddpf3 = Column(String, nullable=False)
 
     tpf1 = Column(Float, nullable=False)
     tpf2 = Column(Float, nullable=False)
