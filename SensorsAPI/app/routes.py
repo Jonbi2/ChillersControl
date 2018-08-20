@@ -38,7 +38,7 @@ def micro_dmp_680_currents():
     if csv is not None:
         csv = True
 
-    return micro_dmp_680_get_voltages_data(time_range_begin, time_range_end, csv)
+    return micro_dmp_680_get_voltages_data(None, time_range_begin, time_range_end, csv)
 
 @app.route('/micro_dmp_680_powers/get_data', methods=['GET'])
 def micro_dmp_680_powers():
@@ -49,7 +49,7 @@ def micro_dmp_680_powers():
     if csv is not None:
         csv = True
         
-    return micro_dmp_680_get_powers_data(time_range_begin, time_range_end, csv)
+    return micro_dmp_680_get_powers_data(None ,time_range_begin, time_range_end, csv)
 
 @app.route('/flow_meter/get_data', methods=['GET'])
 def flow_meter():

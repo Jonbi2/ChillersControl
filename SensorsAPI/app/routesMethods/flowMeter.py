@@ -21,6 +21,10 @@ def flow_meter_get_data(device_id=None ,time_range_begin=None, time_range_end=No
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(time_range_end) + " AND sensor_id = " + "'" + str(device_id) + "'"
         result =  flow_meter_DbClient.select_data("*", where_query)
 
+    elif time_range_end is None and device_id is None:
+        where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
+        result =  flow_meter_DbClient.select_data("*", where_query)
+
     elif time_range_end is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time())) + " AND sensor_id = " + str(device_id)
         result =  flow_meter_DbClient.select_data("*", where_query)

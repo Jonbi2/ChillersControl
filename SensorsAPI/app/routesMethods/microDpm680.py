@@ -7,13 +7,17 @@ import io
 import time
 
 
-def micro_dmp_680_get_voltages_data(time_range_begin=None, time_range_end=None, is_result_csv=None):
+def micro_dmp_680_get_voltages_data(device_id=None, time_range_begin=None, time_range_end=None, is_result_csv=None):
     if time_range_begin is int and time_range_end is int:  # timestamp is int !
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(time_range_end)
         result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
 
     elif time_range_begin is None and time_range_end is None:
         result = microDpm680_voltage_and_currents_DbClient.select_data()
+
+    elif time_range_end is None and device_id is None:
+        where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
+        result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
 
     elif time_range_end is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
@@ -52,13 +56,17 @@ def micro_dmp_680_get_voltages_data(time_range_begin=None, time_range_end=None, 
     return result
 
 
-def micro_dmp_680_get_powers_data(time_range_begin=None, time_range_end=None, is_result_csv=None):
+def micro_dmp_680_get_powers_data(device_id=None, time_range_begin=None, time_range_end=None, is_result_csv=None):
     if time_range_begin is int and time_range_end is int:  # timestamp is int !
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(time_range_end)
         result =  microDpm680_powers_DbClient.select_data("*", where_query)
 
     elif time_range_begin is None and time_range_end is None:
         result = microDpm680_powers_DbClient.select_data()
+
+    elif time_range_end is None and device_id is None:
+        where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
+        result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
 
     elif time_range_end is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
