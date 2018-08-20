@@ -11,4 +11,6 @@ __pycache__
 
 # virtualanv
 
+sensorsclient/node_modules/
+
 venv/
