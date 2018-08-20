@@ -377,8 +377,6 @@ class MicroDpm680PowerDbClient:
         sql_query = "SELECT " + param + " FROM micro_dpm680_power_readings " + where_sql_query
         db_result = self.session.execute(sql_query).fetchall()
 
-        print(db_result[0])
-
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
             i_json = {}
