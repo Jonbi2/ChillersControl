@@ -11,9 +11,19 @@ import datetime
 
 def get_parameters_ticker():
 
-    flow = flow_meter_DbClient.select_data()[0]['reading']
-    power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
-    temperature = ds18b20_DbClient.select_data()[0]['temperature']
+    try:
+        flow = flow_meter_DbClient.select_data()[0]['reading']
+    except IndexError:
+        flow = None
+    try:
+        power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
+    except IndexError:
+        power_usage = None
+    try:
+        temperature = ds18b20_DbClient.select_data()[0]['temperature']
+    except IndexError:
+        temperature = None
+        
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
