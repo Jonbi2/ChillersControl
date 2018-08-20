@@ -5,7 +5,7 @@ from SqlModeling.microDpm680DatabaseClient import microDpm680_powers_DbClient, m
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
-from start_sensors import pressures, flows, temperatures, powers, currents
+# from start_sensors import pressures, flows, temperatures, powers, currents
 
 print(temperatures)
 print(flows)
