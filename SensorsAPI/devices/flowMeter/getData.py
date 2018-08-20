@@ -41,4 +41,5 @@ class FlowMeter:
 
 if is_GPIO_recognized:
     flow_meters = [FlowMeter(40)]
+print("DUPA")
 flow_meters = []
