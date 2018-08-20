@@ -15,15 +15,26 @@ from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
+
+temperatures = None
+flows = None
+pressures = None
+powers = None
+currents = None
+
+
 def start_measurments():
     while True: 
         # Micro Dmp680 handling
-        microDpm680_voltage_and_currents_DbClient.push_data(get_micro_dpm68_voltages_and_currents_data())
-        microDpm680_powers_DbClient.push_data(get_micro_dpm680_powers_data())
+        currents = get_micro_dpm68_voltages_and_currents_data()
+        powers = get_micro_dpm680_powers_data()
+        microDpm680_voltage_and_currents_DbClient.push_data(currents)
+        microDpm680_powers_DbClient.push_data(powers)
 
         # DS18B20 temperatire sensors handling 
         try:
-            ds18b20_DbClient.push_data(get_ds18b20_data())
+            temperatures = get_ds18b20_data()
+            ds18b20_DbClient.push_data(temperatures)
         except RuntimeError as error:
             print(error)
             time.sleep(1)
@@ -36,7 +47,8 @@ def start_measurments():
 
         # QBE Pressure Sensor handling
         for pressure_sensor in pressure_sensors:
-            qbe2002p25_DbClient.push_data(pressure_sensor.get_qbe2002_p25_data())
+            pressures = pressure_sensor.get_qbe2002_p25_data()
+            qbe2002p25_DbClient.push_data(pressures)
 
         # Measurement countdown
         print(termcolor.colored("Pushing Data ...", "yellow"))
@@ -45,7 +57,8 @@ def start_measurments():
 
         # Flow meters handling impulses to value converting
         for flow_meter in flow_meters:
-            flow_meter_DbClient.push_data(flow_meter.get_data(time.time() - flow_meters_counting_start_time))
+            flows = flow_meter.get_data(time.time() - flow_meters_counting_start_time)
+            flow_meter_DbClient.push_data(flows)
 
         print(termcolor.colored("Data pushed successfully", "yellow"))
 
