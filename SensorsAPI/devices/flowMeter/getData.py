@@ -8,7 +8,7 @@ is_GPIO_recognized = True
 try:
     import RPi.GPIO as GPIO
 except:
-    print("No GPIO pins have been detected")
+    print("No GPIO pins have been detected, flow_meter")
     is_GPIO_recognized = False
 
 

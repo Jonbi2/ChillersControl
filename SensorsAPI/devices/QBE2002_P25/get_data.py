@@ -10,7 +10,7 @@ try:
         GPIO.setup([SPIMOSI, SPICLK, SPICS], GPIO.OUT)
         GPIO.setup(SPIMISO, GPIO.IN)
 except:
-        print("No GPIO pins have been detected")
+        print("No GPIO pins have been detected, QBE2002_P25")
         is_GPIO_recognized = False
  
 # freely chosen SPI pins
