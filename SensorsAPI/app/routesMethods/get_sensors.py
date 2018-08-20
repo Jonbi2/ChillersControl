@@ -5,15 +5,25 @@ from flask import jsonify
 def get_sensors():
     sensors = {'sensors': []}
 
-    # Micro DPM 680
+    # Micro DPM 680 Powers
 
-    name = 'micro_dpm_680'
+    name = 'micro_dpm_680_powers'
     sensors_list = ['micro_dpm_680_1']
-    route = '/micro_dmp_680/get_data'
+    route = '/micro_dmp_680_powers/get_data'
     params = {'time_range_begin': 'timestamp', 'time_range_end': 'timestamp', 'csv': 'boolean'}
 
-    micro_dpm_680 = {'name': name, 'sensors_list': sensors_list, 'route': route, 'params': params}
-    sensors['sensors'].append(micro_dpm_680)
+    micro_dpm_680_powers = {'name': name, 'sensors_list': sensors_list, 'route': route, 'params': params}
+    sensors['sensors'].append(micro_dpm_680_powers)
+
+    # Micro DPM 680 Currents
+
+    name = 'micro_dmp_680_currents'
+    sensors_list = ['micro_dpm_680_1']
+    route = '/micro_dmp_680_currents/get_data'
+    params = {'time_range_begin': 'timestamp', 'time_range_end': 'timestamp', 'csv': 'boolean'}
+
+    micro_dmp_680_currents = {'name': name, 'sensors_list': sensors_list, 'route': route, 'params': params}
+    sensors['sensors'].append(micro_dmp_680_currents)
 
 
     # DS18B20
