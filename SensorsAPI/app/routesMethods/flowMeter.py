@@ -12,7 +12,6 @@ def flow_meter_get_data(device_id=None ,time_range_begin=None, time_range_end=No
 
     if time_range_begin is None and time_range_end is None and device_id is None:
             result = flow_meter_DbClient.select_data()
-            print(result)
 
     elif time_range_begin is None and time_range_end is None:
         result = flow_meter_DbClient.select_data("*", "WHERE sensor_id = " + str(device_id))

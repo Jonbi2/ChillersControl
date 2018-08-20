@@ -33,7 +33,6 @@ def ds18b20_get_data(device_id=None ,time_range_begin=None, time_range_end=None,
 
     if is_result_csv is not True:
         result = jsonify(result)
-        print(is_result_csv)
 
     else:
         rows_list = [list(result[0].keys())]

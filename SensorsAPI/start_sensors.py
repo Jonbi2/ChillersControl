@@ -40,7 +40,7 @@ def start_measurments():
 
         # Measurement countdown
         print(termcolor.colored("Pushing Data ...", "yellow"))
-        for i in tqdm(range(100)):
+        for i in tqdm(range(50)):
             time.sleep(0.1)
 
         # Flow meters handling impulses to value converting

@@ -30,8 +30,7 @@ def micro_dmp_680_get_voltages_data(device_id=None, time_range_begin=None, time_
         result = jsonify(result)
 
     else:
-        print("executed")
-        rows_list = []
+        rows_list = [list(result[0].keys()]
         for json in result:
             rows_list.append(list(json.values()))
 
