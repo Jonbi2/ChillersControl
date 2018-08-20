@@ -387,88 +387,90 @@ class MicroDpm680PowerDbClient:
             i_json['P1'] = db_result[i][3]
             i_json['P2'] = db_result[i][4]
             i_json['P3'] = db_result[i][5]
-
             i_json['P4'] = db_result[i][6]
+
             i_json['Q1'] = db_result[i][7]
             i_json['Q2'] = db_result[i][8]
-
             i_json['Q3'] = db_result[i][9]
             i_json['Q4'] = db_result[i][10]
-            i_json['S1'] = db_result[i][11]
 
+            i_json['S1'] = db_result[i][11]
             i_json['S2'] = db_result[i][12]
             i_json['S3'] = db_result[i][13]
             i_json['S4'] = db_result[i][14]
-            i_json['Wh1'] = db_result[i][15]
 
+            i_json['Wh1'] = db_result[i][15]
             i_json['Wh2'] = db_result[i][16]
             i_json['Wh3'] = db_result[i][17]
             i_json['Wh4'] = db_result[i][18]
-            i_json['varh1'] = db_result[i][19]
 
+            i_json['varh1'] = db_result[i][19]
             i_json['varh2'] = db_result[i][20]
             i_json['varh3'] = db_result[i][21]
             i_json['varh4'] = db_result[i][22]
 
-            i_json['Vah1'] = db_result[i][23]
-            i_json['Vah2'] = db_result[i][24]
-            i_json['Vah3'] = db_result[i][25]
+            i_json['VAh1'] = db_result[i][23]
+            i_json['VAh2'] = db_result[i][24]
+            i_json['VAh3'] = db_result[i][25]
+            i_json['VAh4'] = db_result[i][26]
 
-            i_json['Vah4'] = db_result[i][26]
             i_json['IWh1'] = db_result[i][27]
             i_json['IWh2'] = db_result[i][28]
-
             i_json['IWh3'] = db_result[i][29]
-            i_json['xWh1'] = db_result[i][30]
-            i_json['xWh2'] = db_result[i][31]
 
-            i_json['xWh3'] = db_result[i][32]
+            i_json['XWh1'] = db_result[i][30]
+            i_json['XWh2'] = db_result[i][31]
+            i_json['XWh3'] = db_result[i][32]
+
             i_json['Ivarh1'] = db_result[i][33]
             i_json['Ivarh2'] = db_result[i][34]
-
             i_json['Ivarh3'] = db_result[i][35]
+
             i_json['Xvarh1'] = db_result[i][36]
             i_json['Xvarh2'] = db_result[i][37]
-
             i_json['Xvarh3'] = db_result[i][38]
+
             i_json['IVah1'] = db_result[i][39]
             i_json['IVah2'] = db_result[i][40]
-
             i_json['IVah3'] = db_result[i][41]
+
             i_json['XVah1'] = db_result[i][42]
             i_json['XVah2'] = db_result[i][43]
-
             i_json['XVah3'] = db_result[i][44]
+
             i_json['dpf1'] = db_result[i][45]
             i_json['dpf2'] = db_result[i][46]
-
             i_json['dpf3'] = db_result[i][47]
+
             i_json['ddpf1'] = db_result[i][48]
             i_json['ddpf2'] = db_result[i][49]
-
             i_json['ddpf3'] = db_result[i][50]
+
             i_json['tpf1'] = db_result[i][51]
             i_json['tpf2'] = db_result[i][52]
-
             i_json['tpf3'] = db_result[i][53]
             i_json['tpf4'] = db_result[i][54]
+
             i_json['dtpf1'] = db_result[i][55]
-            
             i_json['dtpf2'] = db_result[i][56]
             i_json['dtpf3'] = db_result[i][57]
             i_json['dtpf4'] = db_result[i][58]
-            
-            i_json['Idp1'] = db_result[i][59]
-            i_json['Idp2'] = db_result[i][60]
-            i_json['Idp3'] = db_result[i][61]
 
-            i_json['Pd1'] = db_result[i][62]
-            i_json['Pd2'] = db_result[i][63]
-            i_json['Pd3'] = db_result[i][64]
+            i_json['Id1'] = db_result[i][59]
+            i_json['Id2'] = db_result[i][60]
+            i_json['Id3'] = db_result[i][61]
 
-            i_json['Pdp1'] = db_result[i][65]
-            i_json['Pdp2'] = db_result[i][66]
-            i_json['Pdp3'] = db_result[i][67]
+            i_json['Idp1'] = db_result[i][62]
+            i_json['Idp2'] = db_result[i][62]
+            i_json['Idp3'] = db_result[i][64]
+
+            i_json['Pd1'] = db_result[i][65]
+            i_json['Pd2'] = db_result[i][66]
+            i_json['Pd3'] = db_result[i][67]
+
+            i_json['Pdp1'] = db_result[i][68]
+            i_json['Pdp2'] = db_result[i][69]
+            i_json['Pdp3'] = db_result[i][70]
 
             result.append(i_json)  
 
