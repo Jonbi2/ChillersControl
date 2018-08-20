@@ -57,7 +57,5 @@ def flow_meter_get_data(device_id=None ,time_range_begin=None, time_range_end=No
             attachment_filename='flowMeter.csv',
             mimetype='text/csv'
         )
-
-    print(result)
-
+        
     return result
