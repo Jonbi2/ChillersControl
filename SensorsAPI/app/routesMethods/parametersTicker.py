@@ -7,11 +7,11 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 # from start_sensors import pressures, flows, temperatures, powers, currents
 
-print(temperatures)
-print(flows)
-print(pressures)
-print(currents)
-print(powers)
+# print(temperatures)
+# print(flows)
+# print(pressures)
+# print(currents)
+# print(powers)
 
 import time
 import datetime
