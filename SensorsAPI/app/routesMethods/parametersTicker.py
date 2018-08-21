@@ -31,16 +31,12 @@ def get_parameters_ticker():
 
     variable = random.randint(10, 99)
 
-    sensors = requests.get('http://192.168.1.147:5000/get_connected_ds18b20').json()['result']
+    sensors = get_connected_sensors(True)
     temperatures = {}
-
-    print(get_connected_sensors(True))
 
     for sensor_temperature in sensors:
         temperatures[sensor_temperature] = ds18b20_DbClient.select_data('*', "WHERE sensor_id=" + '"' + str(sensor_temperature) + '"')[0]['temperature']
     
-    print(temperatures)
-
     t_ot_address = str(list(temperatures.keys())[0])
     t_p1_address = str(list(temperatures.keys())[1])
     t_p2_address = str(list(temperatures.keys())[2])
