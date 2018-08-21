@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
 import datetime
+import sqlite3
 import time
 
 
@@ -35,7 +36,10 @@ class DS18B20DatabaseClient:
             )
 
             self.session.add(new_data_push)
-            self.session.commit()
+            try:
+                self.session.commit()
+            except sqlite3.OperationalError:
+                time.sleep(0.01)
             self.session.close()
 
     def select_data(self, param=None, where_sql_query=None, additional_list=None):
