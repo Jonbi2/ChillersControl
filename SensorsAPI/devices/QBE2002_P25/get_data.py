@@ -57,17 +57,17 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 
 class QBE2002P25PressureSensor:
     def __init__(self, adc_pin):
-        self.potentiometer_adc = adc_pin
+        self.adc_pin = adc_pin
 
     def read_potentiometer(self):
-        trim_pot = readadc(self.potentiometer_adc, SPICLK,
+        trim_pot = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
         return round(trim_pot / 1024.0, 2)
 
     def get_qbe2002_p25_data(self):
-        trim_pot = readadc(self.potentiometer_adc, SPICLK,
+        trim_pot = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
-        result = {'reading': trim_pot * 25.0 / 1024.0, 'sensor_id': 1}
+        result = {'reading': trim_pot * 25.0 / 1024.0, 'sensor_id': self.adc_pin}
         return result
 
 
