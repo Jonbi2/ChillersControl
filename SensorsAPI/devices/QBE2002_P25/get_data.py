@@ -72,6 +72,6 @@ class QBE2002P25PressureSensor:
 
 
 if is_GPIO_recognized:
-    pressure_sensors = [QBE2002P25PressureSensor(0)]
+    pressure_sensors = [QBE2002P25PressureSensor(0), QBE2002P25PressureSensor(1)]
 else:
     pressure_sensors = []
