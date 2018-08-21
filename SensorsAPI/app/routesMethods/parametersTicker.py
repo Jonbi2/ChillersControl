@@ -5,6 +5,8 @@ from SqlModeling.microDpm680DatabaseClient import microDpm680_powers_DbClient, m
 from SqlModeling.QBE2002_P25_PressureSensorDatabaseClient import qbe2002p25_DbClient
 from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
+from app.routesMethods.getDS18B20Sensors import get_connected_sensors
+
 # from start_sensors import pressures, flows, temperatures, powers, currents
 
 # print(temperatures)
@@ -31,6 +33,8 @@ def get_parameters_ticker():
 
     sensors = requests.get('http://192.168.1.147:5000/get_connected_ds18b20').json()['result']
     temperatures = {}
+
+    print(get_connected_sensors())
 
     for sensor_temperature in sensors:
         temperatures[sensor_temperature] = ds18b20_DbClient.select_data('*', "WHERE sensor_id=" + '"' + str(sensor_temperature) + '"')[0]['temperature']
