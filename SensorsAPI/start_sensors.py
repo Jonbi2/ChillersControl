@@ -64,5 +64,4 @@ def start_measurments():
 
         print(termcolor.colored("Data pushed successfully", "yellow"))
 
-
-params_dict['temperature'] = 10
+start_measurments()
