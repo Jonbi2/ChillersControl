@@ -14,7 +14,7 @@ class DS18B20DatabaseClient:
     def __init__(self):
         self.engine = create_engine(db_directory)
         Base.metadata.bind = self.engine
-        db_session = sessionmaker(bind=self.engine)
+        db_session = sessionmaker(bind=self.engine, autoflush=True)
         self.session = scoped_session(db_session)
 
     def push_data(self, params):
