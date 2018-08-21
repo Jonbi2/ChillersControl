@@ -34,7 +34,7 @@ def get_parameters_ticker():
     sensors = requests.get('http://192.168.1.147:5000/get_connected_ds18b20').json()['result']
     temperatures = {}
 
-    print(get_connected_sensors())
+    print(get_connected_sensors(True))
 
     for sensor_temperature in sensors:
         temperatures[sensor_temperature] = ds18b20_DbClient.select_data('*', "WHERE sensor_id=" + '"' + str(sensor_temperature) + '"')[0]['temperature']
