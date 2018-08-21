@@ -29,7 +29,7 @@ def get_parameters_ticker():
 
     variable = random.randint(10, 99)
 
-    sensors = requests.get('http://localhost:5000/get_connected_ds18b20').json()['result']
+    sensors = requests.get('http://192.168.1.147:5000/get_connected_ds18b20').json()['result']
     temperatures = {}
 
     for sensor_temperature in sensors:
@@ -40,7 +40,7 @@ def get_parameters_ticker():
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
               't_zb': variable,
-              't_ot': temperatures[list(temperatures.keys())[0]],
+              't_ot': temperatures[list(temperatures.values())[0]],
               't_p1': None, 
               't_p2': None,
               't_p3': None,
