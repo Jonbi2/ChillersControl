@@ -40,6 +40,9 @@ def get_parameters_ticker():
     t_ot_address = str(list(temperatures.keys())[0])
     t_p1_address = str(list(temperatures.keys())[1])
     t_p2_address = str(list(temperatures.keys())[2])
+    t_p3_address = str(list(temperatures.keys())[3])
+    t_p4_address = str(list(temperatures.keys())[4])
+    t_ev_address = str(list(temperatures.keys())[5])
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
@@ -47,10 +50,10 @@ def get_parameters_ticker():
               't_ot': temperatures[t_ot_address],
               't_p1': temperatures[t_p1_address], 
               't_p2': temperatures[t_p2_address],
-              't_p3': None,
-              't_p4': None,
+              't_p3': temperatures[t_p3_address],
+              't_p4': temperatures[t_p4_address],
               'p_lp': None,
-              't_ev': None,
+              't_ev': temperatures[t_ev_address],
               't_sh': None,
               'SH': None,
               'p_hp': None,
