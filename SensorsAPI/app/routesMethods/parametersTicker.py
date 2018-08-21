@@ -37,15 +37,16 @@ def get_parameters_ticker():
     
     print(temperatures)
 
-    key_0 = str(list(temperatures.keys())[0])
-    print(key_0)
+    t_ot_address = str(list(temperatures.keys())[0])
+    t_p1_address = str(list(temperatures.keys())[1])
+    t_p2_address = str(list(temperatures.keys())[2])
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
               't_zb': variable,
-              't_ot': temperatures[key_0],
-              't_p1': None, 
-              't_p2': None,
+              't_ot': temperatures[t_ot_address],
+              't_p1': temperatures[t_p1_address], 
+              't_p2': temperatures[t_p2_address],
               't_p3': None,
               't_p4': None,
               'p_lp': None,
