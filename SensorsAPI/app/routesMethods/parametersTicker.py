@@ -37,7 +37,7 @@ def get_parameters_ticker():
     
     print(temperatures)
 
-    key_0 = list(temperatures.keys()[0])
+    key_0 = list(temperatures.keys())[0]
     print(key_0)
 
     result = {'datetime': str(datetime.datetime.now()),
