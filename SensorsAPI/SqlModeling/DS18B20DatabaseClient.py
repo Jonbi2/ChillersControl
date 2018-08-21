@@ -4,9 +4,9 @@ from .createDS18B20Model import db_directory
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.exc.OperationalError import OperationalError
 
 import datetime
-import sqlite3
 import time
 
 
@@ -38,7 +38,7 @@ class DS18B20DatabaseClient:
             self.session.add(new_data_push)
             try:
                 self.session.commit()
-            except sqlite3.OperationalError:
+            except OperationalError:
                 time.sleep(0.01)
             self.session.close()
 
