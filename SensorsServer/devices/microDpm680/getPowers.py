@@ -5,7 +5,8 @@ import time
 
 
 def get_micro_dpm680_powers_data():
-    xml_response = requests.get('http://192.168.1.101/status1.xml').text
+    address = json.load(open('config.json'))['MicroDpm680Addresses'][0]
+    xml_response = requests.get('http://' + address + '/status1.xml').text
     response_json = json.dumps(xmltodict.parse(xml_response))
     response_dict = json.loads(response_json)
     data = dict(response_dict['response'])

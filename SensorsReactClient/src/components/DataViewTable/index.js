@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import './DataViewTable.css';
+import ApiConfig from '../../config.json';
 
 
 export default class extends Component {
@@ -12,7 +13,7 @@ export default class extends Component {
     }
 
     async loadSensorsData() {
-        const response = await fetch('http://192.168.1.147:5000/parametersTicker.json');
+        const response = await fetch('http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort + '/parametersTicker.json');
         const data = await response.json();
         this.setState({ data: data.result });
     }

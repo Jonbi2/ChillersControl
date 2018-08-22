@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
 import SensorsButton from './SensorsButton';
-import SensorsSidebar from './SensorsSidebar';
+import ApiConfig from '../../config.json';
 
 import { saveAs } from 'file-saver/FileSaver';
 
 import './Sidebar.css';
+
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class Sidebar extends Component {
     }
 
     async loadSensors() {
-        const response = await fetch('http://192.168.1.147:5000/getSensors');
+        const response = await fetch('http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort + '/getSensors');
         const data = await response.json();
         const sensors = data.sensors
         console.log(sensors);
@@ -28,7 +29,7 @@ export default class Sidebar extends Component {
     }
 
     async fetch_data(route) {
-        const endpoint = 'http://192.168.1.147:5000' + route + "?csv=True&" + "time_range_begin=" + (Date.now()/1000 - 86400).toString()
+        const endpoint = 'http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort +  + route + "?csv=True&" + "time_range_begin=" + (Date.now()/1000 - 86400).toString()
         fetch(endpoint, {
             headers: {
               'Content-Type': 'text/csv'

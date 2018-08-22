@@ -72,6 +72,10 @@ class QBE2002P25PressureSensor:
 
 
 if is_GPIO_recognized:
-    pressure_sensors = [QBE2002P25PressureSensor(0), QBE2002P25PressureSensor(1)]
+    json_pressure_sensors_data = json.load(open('config.json'))['PressureSensors']
+    pressure_sensors_number = len(json_pressure_sensors_data)
+    pressure_sensors = []
+    for i in range(0, pressure_sensors_number):
+        pressure_sensors.append(QBE2002P25PressureSensor(json_pressure_sensors_data[i]))
 else:
     pressure_sensors = []

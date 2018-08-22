@@ -5,7 +5,8 @@ import time
 
 
 def get_micro_dpm68_voltages_and_currents_data():
-    xml_response = requests.get('http://192.168.1.101/status.xml').text
+    address = json.load(open('config.json'))['MicroDpm680Addresses'][0]
+    xml_response = requests.get('http://' + address + '/status.xml').text
     response_json = json.dumps(xmltodict.parse(xml_response))
     response_dict = json.loads(response_json)
     data = dict(response_dict['response'])

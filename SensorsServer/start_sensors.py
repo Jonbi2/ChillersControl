@@ -17,12 +17,13 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 from app.routesMethods.parametersTicker import params_dict
 
+measurment_time = json.load(open('config.json'))['MeasurmentTime']
 
-temperatures = None
-flows = None
-pressures = None
-powers = None
-currents = None
+if measurment_time is None:
+    measurment_time = 25
+else:
+    measurment_time = int(measurment_time)
+
 
 
 def start_measurments():
@@ -54,7 +55,7 @@ def start_measurments():
 
         # Measurement countdown
         print(termcolor.colored("Pushing Data ...", "yellow"))
-        for i in tqdm(range(25)):
+        for i in tqdm(range(measurment_time)):
             time.sleep(0.1)
 
         # Flow meters handling impulses to value converting

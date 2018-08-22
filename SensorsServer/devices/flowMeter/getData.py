@@ -2,6 +2,7 @@ from threading import Thread
 
 import time, sys
 import datetime
+import json
 
 is_GPIO_recognized = True
 
@@ -40,6 +41,10 @@ class FlowMeter:
         return result
 
 if is_GPIO_recognized:
-    flow_meters = [FlowMeter(40)]
+    json_flow_meter_data = json.load(open('config.json'))['FlowMeters']
+    flow_meters_number = len(json_flow_meter_data)
+    flow_meters = []
+    for i in range(0, flow_meters_number):
+        flow_meters.append(FlowMeter(json_flow_meter_data[i]))
 else:
     flow_meters = []

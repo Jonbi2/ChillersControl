@@ -19,7 +19,6 @@ import time
 import datetime
 
 import random
-import requests
 
 params_dict = {}
 

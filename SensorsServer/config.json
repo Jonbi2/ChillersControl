@@ -1,0 +1,16 @@
+{
+    "AccessHash": "393A7FE53C969A6759369E81679012ACCB4DF9C4C0E5F0393F1CA2087D70A18C",
+    "Port": 5000,
+    "MeasurmentTime": null,
+    "DatabaseName": null,
+    "PressureSensors": [
+        0,
+        1
+    ],
+    "FlowMeters": [
+        40
+    ],
+    "MicroDpm680Addresses": [
+        "192.168.1.101"
+    ]
+}
