@@ -1,6 +1,6 @@
 # Client dependencies
 
-sensorsclient/node_modules/
+SensorsReactClient/node_modules/
 
 # Databases
 
@@ -15,8 +15,6 @@ SensorsAPI/__pycache__/
 *.pyc
 
 # virtualenv
-
-sensorsclient/node_modules/
 
 venv/
 

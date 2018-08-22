@@ -1,0 +1,26 @@
+.SensorsButton {
+    width: 140px;
+    height: 40px;
+    background-color: #375cba;
+    text-align: center;
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    display:flex; 
+    flex-direction:row;
+    float: right;
+    border: 1px solid #333;
+}
+
+.SensorsButton:hover {
+    width: 140px;
+    height: 40px;
+    background-color: #4f4d4d;
+    background-color: #4f4d4d;
+}
+
+.SensorsButton:extended {
+    width: 80px;
+    height: 100%;
+    background-color: #4f4d4d;
+}
