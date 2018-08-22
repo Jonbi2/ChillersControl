@@ -46,6 +46,10 @@ def get_parameters_ticker():
     t_sh_address = str(list(temperatures.keys())[6])
     t_sc_address = str(list(temperatures.keys())[7])
 
+    l_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id="0"')[0]['pressure']
+    h_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id="1"')[0]['pressure']
+
+
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
               't_zb': variable,
@@ -54,11 +58,11 @@ def get_parameters_ticker():
               't_p2': temperatures[t_p2_address],
               't_p3': temperatures[t_p3_address],
               't_p4': temperatures[t_p4_address],
-              'p_lp': None,
+              'l_p': l_p,
               't_ev': temperatures[t_ev_address],
               't_sh': temperatures[t_sh_address],
               'SH': None,
-              'p_hp': None,
+              'h_p': h_p,
               't_con': None,
               't_sc': temperatures[t_sc_address],
               's_c': None,

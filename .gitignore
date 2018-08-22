@@ -1,16 +1,24 @@
-# Electron app dependencies
+# Client dependencies
 
-# Sensors Data Collecting
+sensorsclient/node_modules/
 
-bolidLab_readings.db
+# Databases
+
+*.db
+
+# Python's .gitignores 
 
 # Python cache
 
-__pycache__
+SensorsAPI/__pycache__/
 *.pyc
 
-# virtualanv
+# virtualenv
 
 sensorsclient/node_modules/
 
 venv/
+
+#vscode 
+
+.vscode/
