@@ -4,6 +4,7 @@ sensorsclient/node_modules/
 
 # Databases
 
+databases/
 *.db
 
 # Python's .gitignores 
@@ -21,4 +22,4 @@ venv/
 
 #vscode 
 
-/.vscode/
+.vscode/
