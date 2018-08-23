@@ -45,8 +45,8 @@ def get_parameters_ticker():
     t_sh_address = str(list(temperatures.keys())[6])
     t_sc_address = str(list(temperatures.keys())[7])
 
-    l_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id="0"')[0]['pressure']
-    h_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id="1"')[0]['pressure']
+    l_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=0')[0]['pressure']
+    h_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=1')[0]['pressure']
 
 
     result = {'datetime': str(datetime.datetime.now()),

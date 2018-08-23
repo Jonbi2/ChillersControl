@@ -35,7 +35,7 @@ export default class extends Component {
                                 <tr>
                                     <td>Tp3  {data.t_p3 === null ? "Err" : parseFloat(data.t_p3).toFixed(2)}</td>
                                     <td>Tp4  {data.t_p4 === null ? "Err" : parseFloat(data.t_p4).toFixed(2)}</td>
-                                    <td>L-P  {data.l_p === null ? "Err" : parseFloat(data.p_l).toFixed(2)}</td>
+                                    <td>L-P  {data.l_p === null ? "Err" : data.p_l}</td>
                                     <td>Tev  {data.t_ev === null ? "Err" : parseFloat(data.t_ev).toFixed(2)}</td>
                                 </tr>
                                 <tr>

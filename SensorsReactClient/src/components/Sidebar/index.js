@@ -31,7 +31,7 @@ export default class Sidebar extends Component {
     }
 
     async fetch_data(route) {
-        const endpoint = 'http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort +  + route + "?csv=True&" + "time_range_begin=" + (Date.now()/1000 - 86400).toString()
+        const endpoint = 'http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort + route + "?csv=True&" + "time_range_begin=" + (Date.now()/1000 - 86400).toString()
         fetch(endpoint, {
             headers: {
               'Content-Type': 'text/csv'
@@ -57,7 +57,7 @@ export default class Sidebar extends Component {
                 <div className="Sidebar-content">
                     {this.state.extended && sensors ? sensors.map((sensor, key) => <SensorsButton
                         key={key} {...sensor}
-                        onClick={ () => {this.fetch_data(sensor.route)}}
+                        onClick={ () => {console.log(sensor.route); this.fetch_data(sensor.route.toString())}}
                         name = {sensor.name} />) : console.log("loading")}
                 </div>
             </div>
