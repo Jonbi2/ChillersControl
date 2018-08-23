@@ -5,6 +5,8 @@ import ApiConfig from '../../config.json';
 
 import { saveAs } from 'file-saver/FileSaver';
 
+import getTemperatureFromPressure from '../../utils/PressureToTemperature';
+
 import './Sidebar.css';
 
 
@@ -16,8 +18,8 @@ export default class Sidebar extends Component {
             data: []
         }
         console.log("constructor called");
+        console.log(getTemperatureFromPressure("R404A" ,10));
         this.loadSensors();
-        console.log(this.state.sensors);
     }
 
     async loadSensors() {
