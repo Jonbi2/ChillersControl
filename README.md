@@ -14,7 +14,7 @@ Next features will allow to config the logic and conditions when a device will s
 
 **How to start it?**
 
-1.Get an Raspberry pi and connect all the devices and specify the pins where the devices will be connected. 
-2.Get the raspberryPi address and input this address in the SensorsReactClient/src/config.json file
-3.Download the SensorsServer on the RaspberryPi and run all the setup scripts 
-4.Run the server on the RaspberryPi and run the ReactClient on a different device using yarn start and installing the dependencies. 
+1.Get an Raspberry pi and connect all the devices and specify the pins where the devices will be connected. \n
+2.Get the raspberryPi address and input this address in the SensorsReactClient/src/config.json file \n
+3.Download the SensorsServer on the RaspberryPi and run all the setup scripts \n
+4.Run the server on the RaspberryPi and run the ReactClient on a different device using yarn start and installing the dependencies. \n
