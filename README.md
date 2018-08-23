@@ -1,13 +1,20 @@
-# Hello!
+#Repository structure
 
-# This program will allow You to use our data collecting device, based on RaspberryPi. It useses temperature sensors(DS18B20), flowmeters(F300A), pressure sensors(QBE2002_P25 by Siemens) and a power sensor(microDPM680). You can connect as many temperature sesnors, flowmeters, pressure sensors as You can fit on Your raspberry!
+This reposotory contains two projects the SensorsServer and the SensorsReactClient
 
-# First, connect Your sensors as shown in the electric diagram. Remember which pins You use on the raspberry
+#SensorsServer
 
-# State which pins You connect each sensor to in the config.json file
+This subproject is a collection of scripts which collect data from sensors such as DS18B20 temperature sensors, F300A flow meters, 
+Siemiens QBE2002_P25 pressure sensors, MicroDpm680 power and voltage measurer. The next part of the Server pushes the data and stores it in a SQLite database locally and provides an REST API to get this data and monitor how is the device working.  
 
-# Now, just run the bash scrip "start.sh", it will start up the rest API and it will start collecting data from all the connected sensors!
+#SensorsReactClient 
 
-# That's it! Your database is ready and collecting data in real time. Just type in Your raspberry IP and the 5000 port and all the records will appear! You can experiment with some SQL requests too if You want
+This subproject is a React WebApp which communicates with the REST server to just show the data and interact with that, for example show realtime measurments in a table, download .csv or .json files according a specific parameter in a timerange. 
+Next features will allow to config the logic and conditions when a device will start or stop and report executive machines such compressors, pomps anomalies.
 
-Enjoy !
+#How to start it? 
+
+1.Get an Raspberry pi and connect all the devices and specify the pins where the devices will be connected. 
+2.Get the raspberryPi address and input this address in the SensorsReactClient/src/config.json file
+3.Download the SensorsServer on the RaspberryPi and run all the setup scripts 
+4.Run the server on the RaspberryPi and run the ReactClient on a different device using yarn start and installing the dependencies. 
