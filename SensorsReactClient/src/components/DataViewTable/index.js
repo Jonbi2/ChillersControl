@@ -10,6 +10,7 @@ export default class extends Component {
         this.state = {};
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
         this.loadSensorsData();
+        console.log("Hello world");
     }
 
     async loadSensorsData() {

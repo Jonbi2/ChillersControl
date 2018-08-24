@@ -8,7 +8,7 @@ sudo apt-get install screen
 
 cd .. 
 
-virtualenv venv
+virtualenv -p python3 venv
 
 source venv/bin/activate
 
