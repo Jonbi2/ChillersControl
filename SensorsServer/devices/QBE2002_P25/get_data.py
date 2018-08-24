@@ -15,7 +15,8 @@ try:
 # set up the SPI interface pins
     GPIO.setup([SPIMOSI, SPICLK, SPICS], GPIO.OUT)
     GPIO.setup(SPIMISO, GPIO.IN)
-except:
+except Exception as exception:
+    print(exception)
     print("No GPIO pins have been detected, QBE2002_P25")
     is_GPIO_recognized = False
 
