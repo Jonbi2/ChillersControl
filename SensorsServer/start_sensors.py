@@ -1,5 +1,4 @@
 import time
-import termcolor
 
 from tqdm import tqdm
 
@@ -54,7 +53,7 @@ def start_measurments():
             qbe2002p25_DbClient.push_data(pressures)
 
         # Measurement countdown
-        print(termcolor.colored("Pushing Data ...", "yellow"))
+        print("Pushing Data ...")
         for i in tqdm(range(measurment_time)):
             time.sleep(0.1)
 
