@@ -62,6 +62,6 @@ def start_measurments():
             flows = flow_meter.get_data(time.time() - flow_meters_counting_start_time)
             flow_meter_DbClient.push_data(flows)
 
-        print(termcolor.colored("Data pushed successfully", "yellow"))
+        print("Data pushed successfully")
 
 start_measurments()
