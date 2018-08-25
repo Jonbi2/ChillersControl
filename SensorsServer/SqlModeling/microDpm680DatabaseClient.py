@@ -20,6 +20,13 @@ class MicroDpm680VoltageAndCurrentsDbClient:
         if not isinstance(params, dict):
             raise AttributeError("Wrong argument has been given params argument is not a dictionary")
 
+        # Convert incompatible types to float
+
+        params_keys = list(params.keys())
+        for param in params_keys:
+            if type(params[param]) is str:
+                params[param] = 0.00
+
         date = datetime.datetime.now()
         timestamp = int(round(time.time()))
 
@@ -62,6 +69,8 @@ class MicroDpm680VoltageAndCurrentsDbClient:
         uTh3 = params['UTh3']
 
         freq = params['freq']
+
+        
 
         new_data_push = MicroDpm680CurrentAndVoltageReadings(
         date=date,
