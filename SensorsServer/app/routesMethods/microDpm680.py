@@ -13,7 +13,7 @@ def micro_dmp_680_get_voltages_data(device_id=None, time_range_begin=None, time_
         result =  microDpm680_voltage_and_currents_DbClient.select_data("*", where_query)
 
     elif time_range_begin is None and time_range_end is None:
-        result = microDpm680_voltage_and_currents_DbClient.select_data()
+        result = microDpm680_voltage_and_currents_DbClient.select_data("*", "WHERE timestamp > " + str(round(time.time()) - 24 * 60 * 60))
 
     elif time_range_end is None and device_id is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
@@ -64,7 +64,7 @@ def micro_dmp_680_get_powers_data(device_id=None, time_range_begin=None, time_ra
         result =  microDpm680_powers_DbClient.select_data("*", where_query)
 
     elif time_range_begin is None and time_range_end is None:
-        result = microDpm680_powers_DbClient.select_data()
+        result = microDpm680_powers_DbClient.select_data("*", "WHERE timestamp > " + str(round(time.time()) - 24 * 60 * 60))
 
     elif time_range_end is None and device_id is None:
         where_query = "WHERE timestamp > " + str(time_range_begin) + " AND timestamp < " + str(round(time.time()))
