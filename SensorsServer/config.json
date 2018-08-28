@@ -4,12 +4,12 @@
     "MeasurmentTime": null,
     "DatabaseName": null,
     "PressureSensors": [
-        {"SensorMCP3008Pin": 0, "MeasurmentRange": 25},
-        {"SensorMCP3008Pin": 1, "MeasurmentRange": 40}
+        {"SensorMCP3008Pin": 0, "MeasurmentRange": 25, "CalibrationValue": 0},
+        {"SensorMCP3008Pin": 1, "MeasurmentRange": 40, "CalibrationValue": 0.35}
     ],
     "FlowMeters": [
-        40,
-        37
+        {"Pin": 40, "CorrectionRatio": 4.8},
+        {"Pin": 37, "CorrectionRatio": 4.8}
     ],
     "MicroDpm680Addresses": [
         "192.168.1.101"

@@ -59,16 +59,15 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 
 
 class QBE2002P25PressureSensor:
-    def __init__(self, adc_pin, pressure_range):
+    def __init__(self, adc_pin, pressure_range, calibration_value):
         self.adc_pin = adc_pin
         self.pressure_range = pressure_range
+        self.calibration_value = calibration_value
 
     def get_qbe2002_p25_data(self):
         digital_reading = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
-        pressure = digital_reading * self.pressure_range / 1024.0
-        if self.pressure_range is 40:
-            pressure = pressure + 0.35
+        pressure = digital_reading * self.pressure_range / 1024.0 + self.calibration_value
         result = {'reading': pressure, 'sensor_id': self.adc_pin}
         return result
 
@@ -80,6 +79,7 @@ if is_GPIO_recognized:
     for i in range(0, pressure_sensors_number):
         sensor_pin = json_pressure_sensors_data[i]["SensorMCP3008Pin"]
         sensor_range = json_pressure_sensors_data[i]["MeasurmentRange"]
-        pressure_sensors.append(QBE2002P25PressureSensor(sensor_pin, sensor_range))
+        calibration_value = json_pressure_sensors_data[i]['CalibrationValue']
+        pressure_sensors.append(QBE2002P25PressureSensor(sensor_pin, sensor_range, calibration_value))
 else:
     pressure_sensors = []

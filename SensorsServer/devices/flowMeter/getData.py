@@ -15,9 +15,9 @@ except Exception as exception:
 
 
 class FlowMeter:
-
-    def __init__(self, pin_connected, pin):
-        self.id = pin
+    def __init__(self, pin_connected, correction_ratio, sensor_id):
+        self.id = sensor_id
+        self.correction_ratio = correction_ratio
 
         # Use GPIO.BOARD - standard mapping
         GPIO.setmode(GPIO.BOARD)
@@ -36,7 +36,7 @@ class FlowMeter:
     
     def get_data(self, time_passed):
         # start_counting must be called beforehand and time between the two must be measured and put in here for get_data to work properly
-        value = self.count/time_passed/5.5
+        value = self.count/time_passed/self.correction_ratio
         result = [{'reading': value, 'sensor_id': self.id}]
         return result
 
@@ -45,6 +45,9 @@ if is_GPIO_recognized:
     flow_meters_number = len(json_flow_meter_data)
     flow_meters = []
     for i in range(0, flow_meters_number):
-        flow_meters.append(FlowMeter(json_flow_meter_data[i], i))
+        pin = json_flow_meter_data[i]["Pin"]
+        correction_ratio = json_flow_meter_data[i]["CorrectionRatio"]
+        sensor_id = i
+        flow_meters.append(FlowMeter(pin, correction_ratio, sensor_id))
 else:
     flow_meters = []
