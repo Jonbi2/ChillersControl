@@ -5,7 +5,7 @@
     "DatabaseName": null,
     "PressureSensors": [
         {"SensorMCP3008Pin": 0, "MeasurmentRange": 25},
-        {"SensorMCP3008Pin": 0, "MeasurmentRange": 40}
+        {"SensorMCP3008Pin": 1, "MeasurmentRange": 40}
     ],
     "FlowMeters": [
         40,

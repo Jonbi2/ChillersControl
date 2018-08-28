@@ -63,15 +63,12 @@ class QBE2002P25PressureSensor:
         self.adc_pin = adc_pin
         self.pressure_range = pressure_range
 
-    def read_potentiometer(self):
-        trim_pot = readadc(self.adc_pin, SPICLK,
-                           SPIMOSI, SPIMISO, SPICS)
-        return round(trim_pot / 1024.0, 2)
-
     def get_qbe2002_p25_data(self):
-        trim_pot = readadc(self.adc_pin, SPICLK,
+        digital_reading = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
-        result = {'reading': trim_pot * self.pressure_range / 1024.0, 'sensor_id': self.adc_pin}
+        pressure = digital_reading * self.pressure_range / 1024.0
+        print('{' ,'Pressure :{pressure}, Pressure_range: {self.pressure_range}', '}')
+        result = {'reading': pressure, 'sensor_id': self.adc_pin}
         return result
 
 
