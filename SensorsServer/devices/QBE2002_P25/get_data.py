@@ -67,7 +67,9 @@ class QBE2002P25PressureSensor:
         digital_reading = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
         pressure = digital_reading * self.pressure_range / 1024.0
-        print('{' ,'Pressure :{pressure}, Pressure_range: {self.pressure_range}', '}')
+        if self.pressure_range is 40:
+            pressure = pressure + 0.35
+        print('{' ,f'Pressure :{pressure}, Pressure_range: {self.pressure_range}', '}')
         result = {'reading': pressure, 'sensor_id': self.adc_pin}
         return result
 
