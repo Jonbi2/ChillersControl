@@ -59,8 +59,9 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 
 
 class QBE2002P25PressureSensor:
-    def __init__(self, adc_pin):
+    def __init__(self, adc_pin, pressure_range):
         self.adc_pin = adc_pin
+        self.pressure_range = pressure_range
 
     def read_potentiometer(self):
         trim_pot = readadc(self.adc_pin, SPICLK,
@@ -70,7 +71,7 @@ class QBE2002P25PressureSensor:
     def get_qbe2002_p25_data(self):
         trim_pot = readadc(self.adc_pin, SPICLK,
                            SPIMOSI, SPIMISO, SPICS)
-        result = {'reading': trim_pot * 25.0 / 1024.0, 'sensor_id': self.adc_pin}
+        result = {'reading': trim_pot * self.pressure_range / 1024.0, 'sensor_id': self.adc_pin}
         return result
 
 
@@ -79,6 +80,8 @@ if is_GPIO_recognized:
     pressure_sensors_number = len(json_pressure_sensors_data)
     pressure_sensors = []
     for i in range(0, pressure_sensors_number):
-        pressure_sensors.append(QBE2002P25PressureSensor(json_pressure_sensors_data[i]))
+        sensor_pin = json_pressure_sensors_data[i]["SensorMCP3008Pin"]
+        sensor_range = json_pressure_sensors_data[i]["MeasurmentRange"]
+        pressure_sensors.append(QBE2002P25PressureSensor(sensor_pin, sensor_range))
 else:
     pressure_sensors = []

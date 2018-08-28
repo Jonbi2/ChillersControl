@@ -4,8 +4,8 @@
     "MeasurmentTime": null,
     "DatabaseName": null,
     "PressureSensors": [
-        0,
-        1
+        {"SensorMCP3008Pin": 0, "MeasurmentRange": 25},
+        {"SensorMCP3008Pin": 0, "MeasurmentRange": 40}
     ],
     "FlowMeters": [
         40,
