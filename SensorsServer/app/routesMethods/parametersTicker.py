@@ -48,6 +48,10 @@ def get_parameters_ticker():
     l_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=0')[0]['pressure']
     h_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=1')[0]['pressure']
 
+    flow_1 = flow_meter_DbClient.select_data("*", "WHERE sensor_id=0")[0]['reading']
+    flow_2 = flow_meter_DbClient.select_data("*", "WHERE sensor_id=1")[0]['reading']
+
+
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
@@ -65,12 +69,12 @@ def get_parameters_ticker():
               't_con': None,
               't_sc': temperatures[t_sc_address],
               's_c': None,
-              'flow_1': None,
+              'flow_1': flow_1,
               't_1': None,
               't_2': None,
               'delta_t': None,
               'p_1': None,
-              'flow_2': None,
+              'flow_2': flow_2,
               't_2_2': None,
               'delta_t_2': None,
               'p_2': None,

@@ -16,9 +16,9 @@ except Exception as exception:
 
 class FlowMeter:
 
-    def __init__(self, pin_connected):
+    def __init__(self, pin_connected, pin):
         self.id = pin_connected  # TODO
-        self.pin = pin_connected
+        self.pin = pin
 
         # Use GPIO.BOARD - standard mapping
         GPIO.setmode(GPIO.BOARD)
@@ -46,6 +46,6 @@ if is_GPIO_recognized:
     flow_meters_number = len(json_flow_meter_data)
     flow_meters = []
     for i in range(0, flow_meters_number):
-        flow_meters.append(FlowMeter(json_flow_meter_data[i]))
+        flow_meters.append(FlowMeter(json_flow_meter_data[i], i))
 else:
     flow_meters = []
