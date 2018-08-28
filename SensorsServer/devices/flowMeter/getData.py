@@ -17,8 +17,7 @@ except Exception as exception:
 class FlowMeter:
 
     def __init__(self, pin_connected, pin):
-        self.id = pin_connected  # TODO
-        self.pin = pin
+        self.id = pin
 
         # Use GPIO.BOARD - standard mapping
         GPIO.setmode(GPIO.BOARD)
