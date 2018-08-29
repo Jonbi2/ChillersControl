@@ -1,7 +1,7 @@
 {
     "AccessHash": "393A7FE53C969A6759369E81679012ACCB4DF9C4C0E5F0393F1CA2087D70A18C",
     "Port": 5000,
-    "MeasurmentTime": null,
+    "MeasurmentTime": 100,
     "DatabaseName": null,
     "PressureSensors": [
         {
@@ -12,17 +12,17 @@
         {
             "SensorMCP3008Pin": 1,
             "MeasurmentRange": 40,
-            "CalibrationValue": 0.35
+            "CalibrationValue": 1.65
         }
     ],
     "FlowMeters": [
         {
             "Pin": 40,
-            "CorrectionRatio": 4.8
+            "CorrectionRatio": 6.7
         },
         {
             "Pin": 37,
-            "CorrectionRatio": 4.8
+            "CorrectionRatio": 6.1
         }
     ],
     "MicroDpm680Addresses": [
