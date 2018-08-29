@@ -50,9 +50,7 @@ class FlowMeterDatabaseClient:
         result = []
         sql_query = "SELECT " + param + " FROM flow_meters_readings " + where_sql_query
 
-        try:
-            db_result = self.session.execute(sql_query, additional_list).fetchall()
-        except 
+        db_result = self.session.execute(sql_query, additional_list).fetchall()
 
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
