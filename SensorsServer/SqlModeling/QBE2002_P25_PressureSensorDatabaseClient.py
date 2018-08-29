@@ -50,7 +50,7 @@ class QBE2002P25DatabaseClient:
             db_result = self.session.execute(sql_query).fetchall()
         except OperationalError:
             time.sleep(0.01)
-            self.select_data(param, where_sql_query)
+            return self.select_data(param, where_sql_query)
 
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
