@@ -5,6 +5,8 @@ from .createQBE2002_P25_PressureSensorModel import db_directory
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
+from sqlalchemy.exc import OperationalError
+
 import datetime
 import time
 
@@ -44,7 +46,11 @@ class QBE2002P25DatabaseClient:
 
         result = []
         sql_query = "SELECT " + param + " FROM qbe2002p25_readings " + where_sql_query
-        db_result = self.session.execute(sql_query).fetchall()
+        try:
+            db_result = self.session.execute(sql_query).fetchall()
+        except OperationalError:
+            time.sleep(0.01)
+            self.select_data(param, where_sql_query)
 
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
