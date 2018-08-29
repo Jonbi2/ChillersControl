@@ -4,14 +4,52 @@
     "MeasurmentTime": null,
     "DatabaseName": null,
     "PressureSensors": [
-        {"SensorMCP3008Pin": 0, "MeasurmentRange": 25, "CalibrationValue": 0},
-        {"SensorMCP3008Pin": 1, "MeasurmentRange": 40, "CalibrationValue": 0.35}
+        {
+            "SensorMCP3008Pin": 0,
+            "MeasurmentRange": 25,
+            "CalibrationValue": 0
+        },
+        {
+            "SensorMCP3008Pin": 1,
+            "MeasurmentRange": 40,
+            "CalibrationValue": 0.35
+        }
     ],
     "FlowMeters": [
-        {"Pin": 40, "CorrectionRatio": 4.8},
-        {"Pin": 37, "CorrectionRatio": 4.8}
+        {
+            "Pin": 40,
+            "CorrectionRatio": 4.8
+        },
+        {
+            "Pin": 37,
+            "CorrectionRatio": 4.8
+        }
     ],
     "MicroDpm680Addresses": [
         "192.168.1.101"
-    ]
+    ],
+    "parameterTickerEndpointConfiguration": {
+        "Temperatures": {
+            "t_zb_sensor_address": "01131701d564",
+            "t_ot_sensor_address": "01131366bbaa",
+            "t_p1_sensor_address": "00000a2bee3b",
+            "t_p2_sensor_address": "00000a3d0d9d",
+            "t_p3_sensor_address": "021311ab17aa",
+            "t_p4_sensor_address": "00000a3d140b",
+            "t_ev_sensor_address": "00000a3d9b07",
+            "t_sh_sensor_address": "0113136bf1aa",
+            "t_sc_sensor_address": "0113133ccfaa",
+            "t_1_sensor_address": "0218412229ff",
+            "t_2_sensor_address": "011316b9ed97",
+            "t_2_2_sensor_address": "011316bc4db8"
+        },
+        "Pressures": {
+            "h_p_sensor_address": 1,
+            "l_p_sensor_address": 0
+        },
+        "Flows": {
+            "flow_1_sensor_address": 40,
+            "flow_2_sensor_address": 37
+        }
+    }
 }

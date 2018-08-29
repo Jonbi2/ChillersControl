@@ -7,83 +7,79 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 from app.routesMethods.getDS18B20Sensors import get_connected_sensors
 
-# from start_sensors import pressures, flows, temperatures, powers, currents
-
-# print(temperatures)
-# print(flows)
-# print(pressures)
-# print(currents)
-# print(powers)
-
 import time
 import datetime
+import json 
 
-import random
-
-params_dict = {}
 
 def get_parameters_ticker():
-
-    # flow = flow_meter_DbClient.select_data()[0]['reading']
     # power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
-    # temperature = ds18b20_DbClient.select_data()[0]['temperature']
 
-    variable = random.randint(10, 99)
+    sensors_addresses = json.load(open('config.json'))['parameterTickerEndpointConfiguration']
 
-    sensors = get_connected_sensors(True)
-    temperatures = {}
+    def get_temperature_from_sensor(sensor_id):
+        sensor_id = str(sensor_id)
+        return ds18b20_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " LIMIT 1")[0]['temperature']
+    def get_pressure_from_sensor(sensor_id):
+        sensor_id = str(sensor_id)
+        return qbe2002p25_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " LIMIT 1")[0]['pressure']
+    def get_flow_from_sensor(sensor_id):
+        sensor_id = str(sensor_id)
+        return flow_meter_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " LIMIT 1")[0]['reading']
 
-    for sensor_temperature in sensors:
-        temperatures[sensor_temperature] = ds18b20_DbClient.select_data('*', "WHERE sensor_id=" + '"' + str(sensor_temperature) + '"')[0]['temperature']
-    
-    t_ot_address = str(list(temperatures.keys())[0])
-    t_p1_address = str(list(temperatures.keys())[1])
-    t_p2_address = str(list(temperatures.keys())[2])
-    t_p3_address = str(list(temperatures.keys())[3])
-    t_p4_address = str(list(temperatures.keys())[4])
-    t_ev_address = str(list(temperatures.keys())[5])
-    t_sh_address = str(list(temperatures.keys())[6])
-    t_sc_address = str(list(temperatures.keys())[7])
+    # Temperatures setup
 
-    l_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=0')[0]['pressure']
-    h_p = qbe2002p25_DbClient.select_data('*', 'WHERE sensor_id=1')[0]['pressure']
+    t_zb_sensor_address = sensors_addresses['Temperatures']['t_zb_sensor_address']
+    t_ot_sensor_address = sensors_addresses['Temperatures']['t_ot_sensor_address']
+    t_p1_sensor_address = sensors_addresses['Temperatures']['t_p1_sensor_address']
+    t_p2_sensor_address = sensors_addresses['Temperatures']['t_p2_sensor_address']
+    t_p3_sensor_address = sensors_addresses['Temperatures']['t_p3_sensor_address']
+    t_p4_sensor_address = sensors_addresses['Temperatures']['t_p4_sensor_address']
+    t_ev_sensor_address = sensors_addresses['Temperatures']['t_ev_sensor_address']
+    t_sh_sensor_address = sensors_addresses['Temperatures']['t_sh_sensor_address']
+    t_sc_sensor_address = sensors_addresses['Temperatures']['t_sc_sensor_address']
+    t_1_sensor_address = sensors_addresses['Temperatures']['t_1_sensor_address']
+    t_2_sensor_address = sensors_addresses['Temperatures']['t_2_sensor_address']
+    t_2_2_sensor_address = sensors_addresses['Temperatures']['t_2_2_sensor_address']
 
-    flow_1 = flow_meter_DbClient.select_data("*", "WHERE sensor_id=0")[0]['reading']
-    flow_2 = flow_meter_DbClient.select_data("*", "WHERE sensor_id=1")[0]['reading']
+    # Pressures setup
 
+    h_p_sensor_address = sensors_addresses['Pressures']['h_p_sensor_address']
+    l_p_sensor_address = sensors_addresses['Pressures']['l_p_sensor_address']
 
+    # Flows setup
+
+    flow_1_sensor_address = sensors_addresses['Flows']['flow_1_sensor_address']
+    flow_2_sensor_address = sensors_addresses['Flows']['flow_2_sensor_address']
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
-              't_zb': variable,
-              't_ot': temperatures[t_ot_address],
-              't_p1': temperatures[t_p1_address], 
-              't_p2': temperatures[t_p2_address],
-              't_p3': temperatures[t_p3_address],
-              't_p4': temperatures[t_p4_address],
-              'l_p': l_p,
-              't_ev': temperatures[t_ev_address],
-              't_sh': temperatures[t_sh_address],
+              't_zb': get_temperature_from_sensor(t_zb_sensor_address),
+              't_ot': get_temperature_from_sensor(t_ot_sensor_address),
+              't_p1': get_temperature_from_sensor(t_p1_sensor_address), 
+              't_p2': get_temperature_from_sensor(t_p2_sensor_address),
+              't_p3': get_temperature_from_sensor(t_p3_sensor_address),
+              't_p4': get_temperature_from_sensor(t_p4_sensor_address),
+              'l_p': get_pressure_from_sensor(l_p_sensor_address),
+              't_ev': get_temperature_from_sensor(t_ev_sensor_address),
+              't_sh': get_temperature_from_sensor(t_sh_sensor_address),
               'SH': None,
-              'h_p': h_p,
+              'h_p': get_pressure_from_sensor(h_p_sensor_address),
               't_con': None,
-              't_sc': temperatures[t_sc_address],
+              't_sc': get_temperature_from_sensor(t_sc_sensor_address),
               's_c': None,
-              'flow_1': flow_1,
-              't_1': None,
-              't_2': None,
+              'flow_1': get_flow_from_sensor(flow_1_sensor_address),
+              't_1': get_temperature_from_sensor(t_1_sensor_address),
+              't_2': get_temperature_from_sensor(t_2_sensor_address),
               'delta_t': None,
               'p_1': None,
-              'flow_2': flow_2,
-              't_2_2': None,
+              'flow_2': get_flow_from_sensor(flow_2_sensor_address),
+              't_2_2': get_temperature_from_sensor(t_2_2_sensor_address),
               'delta_t_2': None,
               'p_2': None,
               'p': None
               }
 
     result = {'result': result}
-
-    # temperature = ds18b20_DbClient.select_data("*", "WHERE sensor_id = " + str("011316bc4db8"))[0]
-
     return jsonify(result)
 
