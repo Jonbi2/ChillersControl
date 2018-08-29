@@ -5,6 +5,8 @@ from .createFlowMeterModel import db_directory
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
+from sqlalchemy.exc import OperationalError
+
 import datetime
 import time
 
@@ -48,7 +50,9 @@ class FlowMeterDatabaseClient:
         result = []
         sql_query = "SELECT " + param + " FROM flow_meters_readings " + where_sql_query
 
-        db_result = self.session.execute(sql_query, additional_list).fetchall()
+        try:
+            db_result = self.session.execute(sql_query, additional_list).fetchall()
+        except 
 
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
