@@ -19,9 +19,7 @@ def get_parameters_ticker():
 
     def get_temperature_from_sensor(sensor_id):
         sensor_id = '"' + str(sensor_id) + '"'
-        result = ds18b20_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")
-        print(result)
-        return result[0]['temperature']
+        return ds18b20_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")[0]['temperature']
     def get_pressure_from_sensor(sensor_id):
         sensor_id = '"' + str(sensor_id) + '"'
         return qbe2002p25_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")[0]['pressure']
