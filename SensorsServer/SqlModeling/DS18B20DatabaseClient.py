@@ -36,10 +36,7 @@ class DS18B20DatabaseClient:
             )
 
             self.session.add(new_data_push)
-            try:
-                self.session.commit()
-            except OperationalError:
-                time.sleep(0.01)
+            self.session.commit()
             self.session.close()
 
     def select_data(self, param=None, where_sql_query=None, additional_list=None):
