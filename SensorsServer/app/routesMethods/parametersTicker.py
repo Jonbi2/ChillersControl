@@ -53,8 +53,10 @@ def get_parameters_ticker():
     flow_2_sensor_address = sensors_addresses['Flows']['flow_2_sensor_address']
 
     # Power setup
-
-    power_usage = microDpm680_powers_DbClient.select_data("P4", "ORDER BY id DESC LIMIT 1")[0]['P4']
+    try:
+        power_usage = microDpm680_powers_DbClient.select_data("P4", "ORDER BY id DESC LIMIT 1")[0]['P4']
+    except:
+        power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
 
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
