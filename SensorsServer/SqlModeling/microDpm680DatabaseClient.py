@@ -396,6 +396,8 @@ class MicroDpm680PowerDbClient:
             # time.sleep(0.01)
             # return self.select_data(param, where_sql_query)
 
+        print(len(db_result))
+
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
             i_json = {}
