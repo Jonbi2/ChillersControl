@@ -392,7 +392,6 @@ class MicroDpm680PowerDbClient:
         sql_query = "SELECT " + param + " FROM micro_dpm680_power_readings " + where_sql_query
         # try:
         db_result = self.session.execute(sql_query).fetchall()
-        print(db_result[0])
         # except OperationalError:
             # time.sleep(0.01)
             # return self.select_data(param, where_sql_query)
@@ -493,7 +492,7 @@ class MicroDpm680PowerDbClient:
                 i_json['Pdp2'] = db_result[i][69]
                 i_json['Pdp3'] = db_result[i][70]
             except IndexError:
-                print(db_result[i])
+                print(db_result[i], "ERRR")
 
             result.append(i_json)  
 
