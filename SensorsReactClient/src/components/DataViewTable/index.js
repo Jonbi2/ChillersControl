@@ -39,7 +39,7 @@ export default class extends Component {
                                 <tr>
                                     <td>Tp3  {data.t_p3 === null ? "Err" : parseFloat(data.t_p3).toFixed(2)}</td>
                                     <td>Tp4  {data.t_p4 === null ? "Err" : parseFloat(data.t_p4).toFixed(2)}</td>
-                                    <td>LP  {data.l_p === null ? "Err" : data.l_p}</td>
+                                    <td>LP  {data.l_p === null ? "Err" : parseFloat(data.l_p).toFixed(2)}</td>
                                     <td>Tevp  {data.l_p === null ? "Err" : parseFloat(pressureToTemperature("R404A", data.l_p)).toFixed(2)}</td>
                                 </tr>
                                 <tr>
@@ -51,28 +51,38 @@ export default class extends Component {
                                 </tr>
                                 <tr>
                                     <td>Tsc  {data.t_sc === null ? "Err" : parseFloat(data.t_sc).toFixed(2)}</td>
-                                    <td>Sc  </td>
+                                    <td>Sc  {parseFloat(data.t_sc - parseFloat(pressureToTemperature("R404A", data.h_p)).toFixed(2)).toFixed(2)}</td>
                                     <td>Flow1  {data.flow_1 === null ? "Err" : parseFloat(data.flow_1).toFixed(2)}</td>
-                                    <td>T1  </td>
+                                    <td>Twe1  {data.t_we_1 === null ? "Err" : parseFloat(data.t_we_1).toFixed(2)}</td>
                                 </tr>
                                 <tr>
-                                    <td>T2  </td>
-                                    <td>&Delta;t  </td>
-                                    <td>P1  </td>
+                                    <td>Twy1  {data.t_wy_1 === null ? "Err" : parseFloat(data.t_wy_1).toFixed(2)}</td>
+                                    <td>&Delta;t1 {data.t_wy_1 == null || data.t_we_1 === null ? "Err" : parseFloat(data.t_wy_1 - data.t_we_1).toFixed(2)}</td>
+                                    <td>Q1  {
+                                        data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null ? "Err" :
+                                            parseFloat(data.flow_1 * 4.2 * 0.995 * (data.t_wy_1 - data.t_we_1) / 60).toFixed(2)
+                                    }</td>
                                     <td>Flow2  {data.flow_2 === null ? "Err" : parseFloat(data.flow_2).toFixed(2)}</td>
                                 </tr>
                                 <tr>
-                                    <td>T2</td>
-                                    <td>&Delta;t  </td>
-                                    <td>P2</td>
-                                    <td>P  </td>
+                                    <td>Twe2  {data.t_we_2 === null ? "Err" : parseFloat(data.t_we_2).toFixed(2)}</td>
+                                    <td>&Delta;t2  {data.t_wy_2 == null || data.t_we_2 === null ? "Err" : parseFloat(data.t_wy_2 - data.t_we_2).toFixed(2)}</td>
+                                    <td>Q2  {
+                                        data.flow_1 === null || data.t_wy_2 === null || data.t_we_2 === null ? "Err" :
+                                            parseFloat(data.flow_2 * 4.2 * 0.995 * (data.t_wy_2 - data.t_we_2) / 60).toFixed(2)
+                                    }</td>
+                                    <td>P  {data.p === null ? "Err" : parseFloat(data.p).toFixed(2)}</td>
                                 </tr>
                             </tbody>
                         </Table>
                         <Table dark>
                             <thead>
                                 <tr>
-                                    <th>CoP</th>
+                                    <th>CoP  {
+                                        data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null || data.t_wy_2 === null || data.t_we_2 || data.p === null ? "Err" :
+                                            parseFloat((data.flow_1 * 4.2 * 0.995 * (data.t_wy_1 - data.t_we_1) / 60) + (data.flow_2 * 4.2 * 0.995 * (data.t_wy_2 - data.t_we_2) / 60) / data.p).toFixed(2)
+                                    }</th>
+                                    <th>Twy2  {data.t_wy_2 === null ? "Err" : parseFloat(data.t_wy_2).toFixed(2)}</th>
                                 </tr>
                             </thead>
                         </Table>

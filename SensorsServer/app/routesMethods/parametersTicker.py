@@ -35,12 +35,12 @@ def get_parameters_ticker():
     t_p2_sensor_address = sensors_addresses['Temperatures']['t_p2_sensor_address']
     t_p3_sensor_address = sensors_addresses['Temperatures']['t_p3_sensor_address']
     t_p4_sensor_address = sensors_addresses['Temperatures']['t_p4_sensor_address']
-    t_ev_sensor_address = sensors_addresses['Temperatures']['t_ev_sensor_address']
+    t_we_2_sensor_address = sensors_addresses['Temperatures']['t_we_2_sensor_address']
     t_sh_sensor_address = sensors_addresses['Temperatures']['t_sh_sensor_address']
     t_sc_sensor_address = sensors_addresses['Temperatures']['t_sc_sensor_address']
-    t_1_sensor_address = sensors_addresses['Temperatures']['t_1_sensor_address']
-    t_2_sensor_address = sensors_addresses['Temperatures']['t_2_sensor_address']
-    t_2_2_sensor_address = sensors_addresses['Temperatures']['t_2_2_sensor_address']
+    t_wy_1_sensor_address = sensors_addresses['Temperatures']['t_wy_1_sensor_address']
+    t_we_1_sensor_address = sensors_addresses['Temperatures']['t_we_1_sensor_address']
+    t_wy_2_sensor_address = sensors_addresses['Temperatures']['t_wy_2_sensor_address']
 
     # Pressures setup
 
@@ -65,15 +65,15 @@ def get_parameters_ticker():
               't_p3': get_temperature_from_sensor(t_p3_sensor_address),
               't_p4': get_temperature_from_sensor(t_p4_sensor_address),
               'l_p': get_pressure_from_sensor(l_p_sensor_address),
-              't_ev': get_temperature_from_sensor(t_ev_sensor_address),
+              't_we_2': get_temperature_from_sensor(t_we_2_sensor_address),
               't_sh': get_temperature_from_sensor(t_sh_sensor_address),
               'h_p': get_pressure_from_sensor(h_p_sensor_address),
               't_sc': get_temperature_from_sensor(t_sc_sensor_address),
               'flow_1': get_flow_from_sensor(flow_1_sensor_address),
-              't_1': get_temperature_from_sensor(t_1_sensor_address),
-              't_2': get_temperature_from_sensor(t_2_sensor_address),
+              't_wy_1': get_temperature_from_sensor(t_wy_1_sensor_address),
+              't_we_1': get_temperature_from_sensor(t_we_1_sensor_address),
               'flow_2': get_flow_from_sensor(flow_2_sensor_address),
-              't_2_2': get_temperature_from_sensor(t_2_2_sensor_address),
+              't_wy_2': get_temperature_from_sensor(t_wy_2_sensor_address),
               'p': power_usage
               }
 

@@ -1,5 +1,6 @@
 import time
 import json
+import requests
 
 from tqdm import tqdm
 
@@ -17,6 +18,11 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 
 measurment_time = json.load(open('config.json'))['MeasurmentTime']
+access_hash = str(json.load(open('config.json'))['AccessHash'])
+
+if not requests.get("http://88.198.250.240:3001/api/" + access_hash).json()['result']:
+    print("Your API key is invalid fuck you...")
+    exit()
 
 if measurment_time is None:
     measurment_time = 25
