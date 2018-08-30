@@ -22,6 +22,22 @@ export default class extends Component {
         this.setState({ data: data.result });
     }
 
+    count_cop(flow, inputTemperatures, outputTemperatures, power) {
+        flow = Number(flow);
+        power = Number(power);
+        for(var i = 0 ; i < inputTemperatures.length; i++) {
+            inputTemperatures[i] = Number(inputTemperatures[i]);
+        }
+        for(var i = 0 ; i < outputTemperatures.length; i++) {
+            outputTemperatures[i] = Number(outputTemperatures[i]);
+        }
+        var q1 = flow * 4.2 * 0.995 * (outputTemperatures[0] - inputTemperatures[0]) / 60;
+        var q2 = flow * 4.2 * 0.995 * (outputTemperatures[1] - inputTemperatures[1]) / 60;
+        var result = Number((q1 + q2) / power);
+        console.log("result: ",typeof(result));
+        return result;
+    }
+
     render() {
         const { data } = this.state;
         return (
@@ -79,8 +95,8 @@ export default class extends Component {
                             <thead>
                                 <tr>
                                     <th>CoP  {
-                                        data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null || data.t_wy_2 === null || data.t_we_2 || data.p === null ? "Err" :
-                                            parseFloat((data.flow_1 * 4.2 * 0.995 * (data.t_wy_1 - data.t_we_1) / 60) + (data.flow_2 * 4.2 * 0.995 * (data.t_wy_2 - data.t_we_2) / 60) / data.p).toFixed(2)
+                                        data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null || data.t_wy_2 === null || data.t_we_2 === null || data.p === null ? "Err" :
+                                            this.count_cop(data.flow_1, [data.t_we_1, data.t_we_2], [data.t_wy_1, data.t_wy_2], data.p)
                                     }</th>
                                     <th>Twy2  {data.t_wy_2 === null ? "Err" : parseFloat(data.t_wy_2).toFixed(2)}</th>
                                 </tr>
