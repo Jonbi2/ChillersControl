@@ -396,8 +396,6 @@ class MicroDpm680PowerDbClient:
             # time.sleep(0.01)
             # return self.select_data(param, where_sql_query)
 
-        print(len(db_result))
-
         for i in range(len(db_result) - 1, -1, -1):
             db_result[i] = list(db_result[i])
             i_json = {}
@@ -494,7 +492,7 @@ class MicroDpm680PowerDbClient:
                 i_json['Pdp2'] = db_result[i][69]
                 i_json['Pdp3'] = db_result[i][70]
             except IndexError:
-                print(db_result[i], "ERRR")
+                print(db_result[i], "ERR  ", len(db_result))
 
             result.append(i_json)  
 
