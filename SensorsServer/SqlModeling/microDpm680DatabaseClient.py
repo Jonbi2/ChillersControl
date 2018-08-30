@@ -402,7 +402,10 @@ class MicroDpm680PowerDbClient:
             i_json = {}
             print(db_result[i])
             i_json['id'] = db_result[i][0]
-            i_json['timestamp'] = db_result[i][1]
+            try:
+                i_json['timestamp'] = db_result[i][1]
+            except:
+                print(db_result[i])
             i_json['date'] = db_result[i][2]
 
             i_json['P1'] = db_result[i][3]
