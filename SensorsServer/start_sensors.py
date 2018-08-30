@@ -29,6 +29,7 @@ def start_measurments():
         # Micro Dmp680 handling
         currents = get_micro_dpm68_voltages_and_currents_data()
         powers = get_micro_dpm680_powers_data()
+        print(powers)
         microDpm680_voltage_and_currents_DbClient.push_data(currents)
         microDpm680_powers_DbClient.push_data(powers)
 
