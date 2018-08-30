@@ -52,6 +52,10 @@ def get_parameters_ticker():
     flow_1_sensor_address = sensors_addresses['Flows']['flow_1_sensor_address']
     flow_2_sensor_address = sensors_addresses['Flows']['flow_2_sensor_address']
 
+    # Power setup
+
+    power_usage = microDpm680_powers_DbClient.select_data("P4", "ORDER BY id DESC LIMIT 1")[0]['P4']
+
     result = {'datetime': str(datetime.datetime.now()),
               'timestamp': round(time.time()),
               't_zb': get_temperature_from_sensor(t_zb_sensor_address),
@@ -63,21 +67,14 @@ def get_parameters_ticker():
               'l_p': get_pressure_from_sensor(l_p_sensor_address),
               't_ev': get_temperature_from_sensor(t_ev_sensor_address),
               't_sh': get_temperature_from_sensor(t_sh_sensor_address),
-              'SH': None,
               'h_p': get_pressure_from_sensor(h_p_sensor_address),
-              't_con': None,
               't_sc': get_temperature_from_sensor(t_sc_sensor_address),
-              's_c': None,
               'flow_1': get_flow_from_sensor(flow_1_sensor_address),
               't_1': get_temperature_from_sensor(t_1_sensor_address),
               't_2': get_temperature_from_sensor(t_2_sensor_address),
-              'delta_t': None,
-              'p_1': None,
               'flow_2': get_flow_from_sensor(flow_2_sensor_address),
               't_2_2': get_temperature_from_sensor(t_2_2_sensor_address),
-              'delta_t_2': None,
-              'p_2': None,
-              'p': None
+              'p': power_usage
               }
 
     result = {'result': result}
