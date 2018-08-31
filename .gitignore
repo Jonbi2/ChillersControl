@@ -2,6 +2,10 @@
 
 SensorsReactClient/node_modules/
 
+# ApiKeys
+
+ApiKeysVerifications/
+
 # Databases
 
 databases/

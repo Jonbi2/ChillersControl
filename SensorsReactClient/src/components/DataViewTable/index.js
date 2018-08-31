@@ -34,17 +34,19 @@ export default class extends Component {
         return q;
     }
 
-    countCop(flow, inputTemperatures, outputTemperatures, power) {
-        flow = Number(flow);
+    countCop(flows, inputTemperatures, outputTemperatures, power) {
         power = Number(power);
-        for(var i = 0 ; i < inputTemperatures.length; i++) {
+        for(var i = 0; i < flows.length; i++) {
+            flows[i] = Number(flows[i]);
+        }
+        for(var i = 0; i < inputTemperatures.length; i++) {
             inputTemperatures[i] = Number(inputTemperatures[i]);
         }
-        for(var i = 0 ; i < outputTemperatures.length; i++) {
+        for(var i = 0; i < outputTemperatures.length; i++) {
             outputTemperatures[i] = Number(outputTemperatures[i]);
         }
-        var q1 = Number(this.countQ(flow, outputTemperatures[0], inputTemperatures[0]));
-        var q2 = Number(this.countQ(flow, outputTemperatures[1], inputTemperatures[1]));
+        var q1 = Number(this.countQ(flows[0], outputTemperatures[0], inputTemperatures[0]));
+        var q2 = Number(this.countQ(flows[1], outputTemperatures[1], inputTemperatures[1]));
         var result = parseFloat(Number((q1 + q2) / power)).toFixed(2);
         if(isNaN(result)) {
             console.log(q1, q2, power);
@@ -100,7 +102,7 @@ export default class extends Component {
                                     <td>&Delta;t2  {data.t_wy_2 == null || data.t_we_2 === null ? "Err" : parseFloat(data.t_wy_2 - data.t_we_2).toFixed(2)}</td>
                                     <td>Q2  {
                                         data.flow_1 === null || data.t_wy_2 === null || data.t_we_2 === null ? "Err" :
-                                            this.countQ(data.flow_1, data.t_wy_2, data.t_we_2)
+                                            this.countQ(data.flow_2, data.t_wy_2, data.t_we_2)
                                     }</td>
                                     <td>P  {data.p === null ? "Err" : parseFloat(data.p).toFixed(2)}</td>
                                 </tr>
@@ -111,7 +113,7 @@ export default class extends Component {
                                 <tr>
                                     <th>CoP  {
                                         data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null || data.t_wy_2 === null || data.t_we_2 === null || data.p === null ? "Err" :
-                                            this.countCop(data.flow_1, [data.t_we_1, data.t_we_2], [data.t_wy_1, data.t_wy_2], data.p)
+                                            this.countCop([data.flow_1, data.flow_2], [data.t_we_1, data.t_we_2], [data.t_wy_1, data.t_wy_2], data.p)
                                     }</th>
                                     <th>Twy2  {data.t_wy_2 === null ? "Err" : parseFloat(data.t_wy_2).toFixed(2)}</th>
                                 </tr>
