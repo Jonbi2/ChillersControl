@@ -21,7 +21,7 @@ export default function getTemperatureFromPressure(refrigerant, pressure) {
 
     for(var i in pressuresList) {
         i = parseInt(i);
-        if (i == pressuresList.length - 1) {
+        if (i === pressuresList.length - 1) {
             return {err: 'Out of range'};
         }
         var range_begin = parseFloat(pressuresList[i][0]);

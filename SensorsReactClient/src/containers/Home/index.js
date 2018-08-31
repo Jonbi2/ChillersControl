@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Chart from 'chart.js'
 import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import DataViewTable from '../../components/DataViewTable';

@@ -22,7 +22,19 @@ export default class extends Component {
         this.setState({ data: data.result });
     }
 
-    count_cop(flow, inputTemperatures, outputTemperatures, power) {
+    countQ(flow, outputTemperature, inputTemperature) {
+        flow = Number(flow);
+        outputTemperature = Number(outputTemperature);
+        inputTemperature = Number(inputTemperature);
+        var q = flow * 4.2 * 0.995 * (outputTemperature - inputTemperature) / 60;
+        q = parseFloat(Math.abs(q)).toFixed(2);
+        if(isNaN(q)) {
+            return "Err";
+        }
+        return q;
+    }
+
+    countCop(flow, inputTemperatures, outputTemperatures, power) {
         flow = Number(flow);
         power = Number(power);
         for(var i = 0 ; i < inputTemperatures.length; i++) {
@@ -31,10 +43,13 @@ export default class extends Component {
         for(var i = 0 ; i < outputTemperatures.length; i++) {
             outputTemperatures[i] = Number(outputTemperatures[i]);
         }
-        var q1 = flow * 4.2 * 0.995 * (outputTemperatures[0] - inputTemperatures[0]) / 60;
-        var q2 = flow * 4.2 * 0.995 * (outputTemperatures[1] - inputTemperatures[1]) / 60;
-        var result = Number((q1 + q2) / power);
-        console.log("result: ",typeof(result));
+        var q1 = Number(this.countQ(flow, outputTemperatures[0], inputTemperatures[0]));
+        var q2 = Number(this.countQ(flow, outputTemperatures[1], inputTemperatures[1]));
+        var result = parseFloat(Number((q1 + q2) / power)).toFixed(2);
+        if(isNaN(result)) {
+            console.log(q1, q2, power);
+            return "Err";
+        }
         return result;
     }
 
@@ -76,7 +91,7 @@ export default class extends Component {
                                     <td>&Delta;t1 {data.t_wy_1 == null || data.t_we_1 === null ? "Err" : parseFloat(data.t_wy_1 - data.t_we_1).toFixed(2)}</td>
                                     <td>Q1  {
                                         data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null ? "Err" :
-                                            parseFloat(data.flow_1 * 4.2 * 0.995 * (data.t_wy_1 - data.t_we_1) / 60).toFixed(2)
+                                            this.countQ(data.flow_1, data.t_wy_1, data.t_we_1)
                                     }</td>
                                     <td>Flow2  {data.flow_2 === null ? "Err" : parseFloat(data.flow_2).toFixed(2)}</td>
                                 </tr>
@@ -85,7 +100,7 @@ export default class extends Component {
                                     <td>&Delta;t2  {data.t_wy_2 == null || data.t_we_2 === null ? "Err" : parseFloat(data.t_wy_2 - data.t_we_2).toFixed(2)}</td>
                                     <td>Q2  {
                                         data.flow_1 === null || data.t_wy_2 === null || data.t_we_2 === null ? "Err" :
-                                            parseFloat(data.flow_2 * 4.2 * 0.995 * (data.t_wy_2 - data.t_we_2) / 60).toFixed(2)
+                                            this.countQ(data.flow_1, data.t_wy_2, data.t_we_2)
                                     }</td>
                                     <td>P  {data.p === null ? "Err" : parseFloat(data.p).toFixed(2)}</td>
                                 </tr>
@@ -96,7 +111,7 @@ export default class extends Component {
                                 <tr>
                                     <th>CoP  {
                                         data.flow_1 === null || data.t_wy_1 === null || data.t_we_1 === null || data.t_wy_2 === null || data.t_we_2 === null || data.p === null ? "Err" :
-                                            this.count_cop(data.flow_1, [data.t_we_1, data.t_we_2], [data.t_wy_1, data.t_wy_2], data.p)
+                                            this.countCop(data.flow_1, [data.t_we_1, data.t_we_2], [data.t_wy_1, data.t_wy_2], data.p)
                                     }</th>
                                     <th>Twy2  {data.t_wy_2 === null ? "Err" : parseFloat(data.t_wy_2).toFixed(2)}</th>
                                 </tr>
