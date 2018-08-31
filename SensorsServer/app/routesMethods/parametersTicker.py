@@ -12,9 +12,7 @@ import datetime
 import json 
 
 
-def get_parameters_ticker():
-    # power_usage = microDpm680_powers_DbClient.select_data()[0]['P1']
-
+def get_parameters_ticker(): 
     sensors_addresses = json.load(open('config.json'))['parameterTickerEndpointConfiguration']
 
     def get_temperature_from_sensor(sensor_id):
@@ -91,4 +89,5 @@ def get_parameters_ticker():
 
     result = {'result': result}
     return jsonify(result)
+
 
