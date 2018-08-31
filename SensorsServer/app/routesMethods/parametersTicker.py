@@ -19,13 +19,25 @@ def get_parameters_ticker():
 
     def get_temperature_from_sensor(sensor_id):
         sensor_id = '"' + str(sensor_id) + '"'
-        return ds18b20_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")[0]['temperature']
+        db_result = ds18b20_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")
+        if len(db_result) < 1:
+            return None
+        else:
+            return db_result[0]['temperature']
     def get_pressure_from_sensor(sensor_id):
         sensor_id = '"' + str(sensor_id) + '"'
-        return qbe2002p25_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")[0]['pressure']
+        db_result = qbe2002p25_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")
+        if len(db_result) < 1:
+            return None
+        else:
+            return db_result[0]['pressure']
     def get_flow_from_sensor(sensor_id):
         sensor_id = '"' + str(sensor_id) + '"'
-        return flow_meter_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")[0]['reading']
+        db_result = flow_meter_DbClient.select_data("*", "WHERE sensor_id=" + sensor_id + " ORDER BY id DESC LIMIT 1")
+        if len(db_result) < 1:
+            return None
+        else:
+            return db_result[0]['reading']
 
     # Temperatures setup
 

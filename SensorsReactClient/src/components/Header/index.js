@@ -15,7 +15,7 @@ export default class Header extends Component {
         var indents = [];
         for (var i = 0; i < number; i++) {
             var j = i + 1;
-            indents.push(<DeviceButton onClick={() => { console.log("Button clicked") }} name = {"B300" + "-" + j} />
+            indents.push(<DeviceButton onClick={() => { console.log() }} name = {"B300" + "-" + j} />
             );
         }
         return indents;

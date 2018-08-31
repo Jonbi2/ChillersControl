@@ -17,8 +17,6 @@ export default class Sidebar extends Component {
             extended: false,
             data: []
         }
-        console.log("constructor called");
-        console.log(getTemperatureFromPressure("R404A" ,10));
         this.loadSensors();
     }
 
@@ -26,7 +24,6 @@ export default class Sidebar extends Component {
         const response = await fetch('http://' + ApiConfig.ApiAddress + ':' + ApiConfig.ApiPort + '/getSensors');
         const data = await response.json();
         const sensors = data.sensors
-        console.log(sensors);
         this.setState({ sensors: sensors });
     }
 
@@ -57,7 +54,7 @@ export default class Sidebar extends Component {
                 <div className="Sidebar-content">
                     {this.state.extended && sensors ? sensors.map((sensor, key) => <SensorsButton
                         key={key} {...sensor}
-                        onClick={ () => {console.log(sensor.route); this.fetch_data(sensor.route.toString())}}
+                        onClick={ () => {this.fetch_data(sensor.route.toString())}}
                         name = {sensor.name} />) : console.log("loading")}
                 </div>
             </div>
