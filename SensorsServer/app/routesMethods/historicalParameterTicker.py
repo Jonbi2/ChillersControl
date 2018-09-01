@@ -76,4 +76,21 @@ def getHistoricalData(timerange_begin, csv=None):
         time.sleep(0.01)
         return getHistoricalData(timerange_begin, csv)
 
+    # Check results lengths
+
+    results = [ds18b20_db_table_result, flows_db_table_result, pressures_db_table_result, powers_db_table_result]
+    results_lengths = []
+    for result_length in results:
+        results_lengths.append(len(result_length))
+
+    for result in results:
+        if len(result) == max(results_lengths):
+            while len(result) > min(results_lengths):
+                result.pop(result[len(result) - 1])
+
+    for i in range(1, len(results)):
+        if len(result[i] != len(result[i - 1])):
+            print("You made a mistake")
+    
+    # Create JSONs
 
