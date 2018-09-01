@@ -13,12 +13,11 @@ from sqlalchemy.exc import OperationalError
 from flask import jsonify
 
 
-sensors_addresses = json.load(open('config.json'))['parameterTickerEndpointConfiguration']
-
-def get_historical_ticker(timerange_begin=None, csv=None):
+def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting timestamp and datetime
     if timerange_begin is None:
         timerange_begin = time.time() - 24 * 60 * 60
-
+        
+    sensors_addresses = json.load(open('config.json'))['parameterTickerEndpointConfiguration']
     results_len = []
     
     # Set temperatures
