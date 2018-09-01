@@ -22,6 +22,9 @@ def count_q():  # TODO
 def count_cop():  # TODO
     pass
 
+def convert_json_to_csv(json_variable):  # TODO
+    pass
+
 def get_historical_ticker(timerange_begin=None, csv=None):  
     if timerange_begin is None:
         timerange_begin = time.time() - 24 * 60 * 60
