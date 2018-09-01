@@ -33,7 +33,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     # Set pressures
     pressures = {}
     for sensor in sensors_addresses['Pressures']:
-        sql_query = "SELECT reading FROM qbe2002p25_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + sensors_addresses['Pressures'][sensor] + '"'
+        sql_query = "SELECT reading FROM qbe2002p25_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + sensors_addresses['Pressures'][sensor] 
         pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
         print(len(pressures[sensor]))
 
