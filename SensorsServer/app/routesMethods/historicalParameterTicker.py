@@ -52,6 +52,8 @@ def count_q(flow, output_temperature, input_temperature):
     return result
 
 def count_cop(q_1, q_2, power):  
+    if power == 0:
+        return None
     result = (q_1 + q_2) / power
     return result
 
