@@ -10,7 +10,7 @@ from SqlModeling.flowMeterDatabaseClient import flow_meter_DbClient
 
 from sqlalchemy.exc import OperationalError
 
-from flask import jsonify
+from flask import jsonify, send_file
 
 
 def convert_pressure_to_temperature(refrigerant, pressure):  
@@ -56,7 +56,32 @@ def count_cop(q_1, q_2, power):
     return result
 
 def convert_json_to_csv(json_variable):  # TODO
-    pass
+    try:
+        rows_list = [list(json_variable[0].keys())]
+    except IndexError:
+        rows_list = []
+    for json in json_variable:
+        rows_list.append(list(json.values()))
+
+    proxy = io.StringIO()
+
+    writer = csv.writer(proxy)
+    for row in rows_list:
+        writer.writerow(row)
+
+    mem = io.BytesIO()
+    mem.write(proxy.getvalue().encode('utf-8'))
+    mem.seek(0)
+    proxy.close()
+
+    json_variable = send_file(
+        mem,
+        as_attachment=True,
+        attachment_filename='DS18B20.csv',
+        mimetype='text/csv'
+    )
+
+    return json_variable
 
 def get_historical_ticker(timerange_begin=None, csv=None):  
     if timerange_begin is None:
@@ -70,30 +95,50 @@ def get_historical_ticker(timerange_begin=None, csv=None):
 
     for sensor in sensors_addresses['Temperatures']:
         sql_query = "SELECT reading FROM ds18b20_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + sensors_addresses['Temperatures'][sensor] + '"'
-        temperatures[sensor] = list(ds18b20_DbClient.session.execute(sql_query).fetchall())
+        try:
+            temperatures[sensor] = list(ds18b20_DbClient.session.execute(sql_query).fetchall())
+        except OperationalError:
+            time.sleep(0.01)
+            return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(temperatures[sensor]))
 
     # Set pressures
     pressures = {}
     for sensor in sensors_addresses['Pressures']:
         sql_query = "SELECT reading FROM qbe2002p25_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Pressures'][sensor]) + '"'
-        pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
+        try:
+            pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
+        except OperationalError:
+            time.sleep(0.01)
+            return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(pressures[sensor]))
 
     # Set flows
     flows = {}
     for sensor in sensors_addresses['Flows']:
         sql_query = "SELECT reading FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows'][sensor]) + '"'
-        flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+        try:
+            flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+        except OperationalError:
+            time.sleep(0.01)
+            return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(flows[sensor]))
     
     # Set timestamp and datetime
     sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin)
-    times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+    try:
+        times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+    except OperationalError:
+        time.sleep(0.01)
+        return get_historical_ticker(timerange_begin, csv)
 
     # Set powers
     sql_query = "SELECT P4 FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin)
-    powers = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
+    try:
+        powers = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
+    except OperationalError:
+        time.sleep(0.01)
+        return get_historical_ticker(timerange_begin, csv)
     results_len.append(len(powers))
 
     # Generate result JSON array
@@ -122,6 +167,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         result.append(i_json)
     if csv is None:
         return jsonify(result)
+    else:
+        return convert_json_to_csv(result)
 
 
 # get_historical_ticker()
