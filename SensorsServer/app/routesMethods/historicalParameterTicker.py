@@ -27,9 +27,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         temperatures[sensor] = list(ds18b20_DbClient.session.execute(sql_query).fetchall())
         print(len(temperatures[sensor]))
 
-
-    print(temperatures.keys())
-
     # Set pressures
     pressures = {}
     for sensor in sensors_addresses['Pressures']:
@@ -37,7 +34,17 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
         print(len(pressures[sensor]))
 
-    print(pressures.keys())
+    # Set flows
+    flows = {}
+    for sensor in sensors_addresses['Flows']:
+        sql_query = "SELECT reading FROM qbe2002p25_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows'][sensor]) + '"'
+        flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+        print(len(flows[sensor]))
+
+    # Set powers
+    powers = {}
+    
+
 
 get_historical_ticker()
         
