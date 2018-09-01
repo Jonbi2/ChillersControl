@@ -148,22 +148,22 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json = {}
         # Set temperatures
         for sensor in sensors_addresses['Temperatures']:
-            i_json[str(sensor)[:-15]] = temperatures[sensor][i]
+            i_json[str(sensor)[:-15]] = temperatures[sensor][i][0]
         # Set pressures
         for sensor in sensors_addresses['Pressures']:
-            i_json[str(sensor)[:-15]] = pressures[sensor][i]
+            i_json[str(sensor)[:-15]] = pressures[sensor][i][0]
         # Set flows
         for sensor in sensors_addresses['Flows']:
-            i_json[str(sensor)[:-15]] = flows[sensor][i]
+            i_json[str(sensor)[:-15]] = flows[sensor][i][0]
         # Set power
-        i_json['P'] = powers[i]
+        i_json['P'] = powers[i][0]
         i_json['t_con'] = convert_pressure_to_temperature("R404A", i_json['h_p']) 
         i_json['t_env'] = convert_pressure_to_temperature("R404A", i_json['l_p']) 
         i_json['Q1'] = count_q(i_json['flow_1'], i_json['t_wy_1'], i_json['t_we_1']) 
         i_json['Q2'] = count_q(i_json['flow_2'], i_json['t_wy_2'], i_json['t_we_2']) 
-        i_json['CoP'] = count_cop(i_json['Q1'], i_json['Q2'], powers[i]) 
-        i_json['date'] = times[i][0]
-        i_json['timestamp'] = times[i][1]
+        i_json['CoP'] = count_cop(i_json['Q1'], i_json['Q2'], powers[i][0]) 
+        i_json['date'] = times[i][0][0]
+        i_json['timestamp'] = times[i][1][0]
         result.append(i_json)
     if csv is None:
         return jsonify(result)
