@@ -171,8 +171,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json['timestamp'] = times[i][1]
         result.append(i_json)
     if csv is None:
-        print(result[0])
-        print(times[0])
         return jsonify(result)
     else:
         return convert_json_to_csv(result)
