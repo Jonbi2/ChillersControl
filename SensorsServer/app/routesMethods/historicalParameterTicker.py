@@ -170,8 +170,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     else:
         return convert_json_to_csv(result)
 
-
-# get_historical_ticker()
         
 
         

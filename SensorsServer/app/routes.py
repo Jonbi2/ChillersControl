@@ -10,6 +10,7 @@ from .routesMethods.get_sensors import get_sensors as fetch_all_sensors
 from .routesMethods.parametersTicker import get_parameters_ticker
 from .routesMethods.flowMeter import flow_meter_get_data
 from .routesMethods.QBE2002_P25 import qbe2002_p25_get_data
+from .routesMethods.historicalParameterTicker import get_historical_ticker
 
 
 @app.route('/getSensors', methods=['GET'])
@@ -84,3 +85,12 @@ def get_connected_ds18b20():
 @app.route('/parametersTicker.json', methods=['GET'])
 def parameters_ticker():
     return get_parameters_ticker()
+
+@app.route('/ticker.json', methods=['GET'])
+def ticker():
+    time_range_begin = request.args.get('time_range_begin')
+    csv = request.args.get('csv')
+    if csv is not None:
+        csv = True 
+
+    return get_historical_ticker(time_range_begin, csv)
