@@ -16,7 +16,7 @@ from flask import jsonify
 def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting timestamp and datetime
     if timerange_begin is None:
         timerange_begin = time.time() - 24 * 60 * 60
-        
+
     sensors_addresses = json.load(open('config.json'))['parameterTickerEndpointConfiguration']
     results_len = []
     
@@ -41,6 +41,11 @@ def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting times
         sql_query = "SELECT reading FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows'][sensor]) + '"'
         flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         results_len.append(len(flows[sensor]))
+    
+    # Set timestamp and datetime
+    sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin)
+    times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+    print(times)
 
     # Set powers
     sql_query = "SELECT P4 FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin)
@@ -63,11 +68,11 @@ def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting times
             i_json[str(sensor)[:-15]] = flows[sensor][i]
         # Set power
         i_json['P'] = powers[i]
-        i_json['t_con'] = None
-        i_json['t_env'] = None
-        i_json['Q1'] = None
-        i_json['Q2'] = None
-        i_json['CoP'] = None
+        i_json['t_con'] = None # TODO
+        i_json['t_env'] = None # TODO
+        i_json['Q1'] = None # TODO 
+        i_json['Q2'] = None # TODO
+        i_json['CoP'] = None # TODO
         result.append(i_json)
     return result
 
