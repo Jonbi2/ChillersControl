@@ -13,14 +13,47 @@ from sqlalchemy.exc import OperationalError
 from flask import jsonify
 
 
-def convert_pressure_to_temperature(refrigerant, pressure):  # TODO
-    pass
+def convert_pressure_to_temperature(refrigerant, pressure):  
+    if refrigerant == "R404A":
+        directory = 'utils/refrigerantsTables/R404A.json'
+    elif refrigerant == "R134A":
+        directory = 'utils/refrigerantsTables/R134A.json'
+    else:
+        raise AttributeError("The given refrigerant is not supported")
 
-def count_q():  # TODO
-    pass
+    data_json = dict(json.load(open(directory)))
 
-def count_cop():  # TODO
-    pass
+    # Convert json to array
+    pressures_list = []
+    for i in range(0, len(data_json.keys()) - 1):
+        row = [float(list(data_json.keys())[i]), float(list(data_json.values())[i])]
+        pressures_list.append(row)
+
+    for i in range(0, len(pressures_list) - 1):
+        if i == len(pressures_list) - 1:
+            raise AttributeError("Out of range")
+        
+        range_begin = pressures_list[i][0]
+        range_end = pressures_list[i + 1][0]
+
+        if pressure >= range_begin and pressure <= range_end:
+            x1 = range_begin
+            x2 = range_end
+
+            y1 = pressures_list[i][1]
+            y2 = pressures_list[i + 1][1]
+
+            a = (y2 - y1) / (x2 - x1)
+            b = (y1 - a * x1)
+            return a * pressure + b
+
+def count_q(flow, output_temperature, input_temperature): 
+    result = flow * 4.2 * 0.0995 * (output_temperature - input_temperature)
+    return result
+
+def count_cop(q_1, q_2, power):  
+    result = (q_1 + q_2) / power
+    return result
 
 def convert_json_to_csv(json_variable):  # TODO
     pass
@@ -90,7 +123,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     return result
 
 
-get_historical_ticker()
+# get_historical_ticker()
+convert_pressure_to_temperature("R404A", 12)
         
 
         
