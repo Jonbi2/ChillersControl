@@ -42,7 +42,9 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         print(len(flows[sensor]))
 
     # Set powers
-    powers = {}
+    sql_query = "SELECT P4 FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin)
+    powers = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
+    print(len(powers))
 
 
 
