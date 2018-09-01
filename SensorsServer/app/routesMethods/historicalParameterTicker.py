@@ -13,7 +13,16 @@ from sqlalchemy.exc import OperationalError
 from flask import jsonify
 
 
-def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting timestamp and datetime
+def convert_pressure_to_temperature(refrigerant, pressure):  # TODO
+    pass
+
+def count_q():  # TODO
+    pass
+
+def count_cop():  # TODO
+    pass
+
+def get_historical_ticker(timerange_begin=None, csv=None):  
     if timerange_begin is None:
         timerange_begin = time.time() - 24 * 60 * 60
 
