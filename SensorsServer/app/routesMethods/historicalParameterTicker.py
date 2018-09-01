@@ -45,7 +45,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting times
     # Set timestamp and datetime
     sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin)
     times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
-    print(times)
 
     # Set powers
     sql_query = "SELECT P4 FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin)
@@ -73,6 +72,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):  # TODO setting times
         i_json['Q1'] = None # TODO 
         i_json['Q2'] = None # TODO
         i_json['CoP'] = None # TODO
+        i_json['date'] = times[i][0]
+        i_json['timestamp'] = times[i][1]
         result.append(i_json)
     return result
 
