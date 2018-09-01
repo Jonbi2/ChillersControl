@@ -12,8 +12,7 @@ from sqlalchemy.exc import OperationalError
 
 from flask import jsonify, send_file
 
-
-def convert_pressure_to_temperature(refrigerant, pressure):  
+def convert_json_to_list(refrigerant):
     if refrigerant == "R404A":
         directory = 'utils/refrigerantsTables/R404A.json'
     elif refrigerant == "R134A":
@@ -28,6 +27,11 @@ def convert_pressure_to_temperature(refrigerant, pressure):
     for i in range(0, len(data_json.keys()) - 1):
         row = [float(list(data_json.keys())[i]), float(list(data_json.values())[i])]
         pressures_list.append(row)
+    return pressures_list
+
+pressures_list = convert_json_to_list("R404A")
+
+def convert_pressure_to_temperature(pressure):  
 
     for i in range(0, len(pressures_list) - 1):
         if i == len(pressures_list) - 1:
