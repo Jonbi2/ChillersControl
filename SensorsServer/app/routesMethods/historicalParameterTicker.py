@@ -164,8 +164,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json['Q1'] = count_q(i_json['flow_1'], i_json['t_wy_1'], i_json['t_we_1']) 
         i_json['Q2'] = count_q(i_json['flow_2'], i_json['t_wy_2'], i_json['t_we_2']) 
         i_json['CoP'] = count_cop(i_json['Q1'], i_json['Q2'], powers[i][0]) 
-        i_json['date'] = times[i][0][0]
-        i_json['timestamp'] = times[i][0][1]
+        i_json['date'] = times[i][0]
+        i_json['timestamp'] = times[i][0]
         result.append(i_json)
     if csv is None:
         return jsonify(result)
