@@ -23,7 +23,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     temperatures = {} 
 
     for sensor in sensors_addresses['Temperatures']:
-        print(sensor)
+        print(sensors_addresses['Temperatures'][sensor])
 
 get_historical_ticker()
         
