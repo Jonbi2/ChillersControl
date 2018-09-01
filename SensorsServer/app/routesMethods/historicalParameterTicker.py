@@ -148,6 +148,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     results_len.append(len(powers))
 
     print(results_len)
+    print(times[0], times[len(times) - 1])
 
     # Generate result JSON array
     result = []
