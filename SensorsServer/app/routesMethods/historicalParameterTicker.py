@@ -112,19 +112,19 @@ def get_historical_ticker(timerange_begin=None, csv=None):
             i_json[str(sensor)[:-15]] = flows[sensor][i]
         # Set power
         i_json['P'] = powers[i]
-        i_json['t_con'] = None # TODO
-        i_json['t_env'] = None # TODO
-        i_json['Q1'] = None # TODO 
-        i_json['Q2'] = None # TODO
-        i_json['CoP'] = None # TODO
+        i_json['t_con'] = convert_pressure_to_temperature("R404A", i_json['h_p']) 
+        i_json['t_env'] = convert_pressure_to_temperature("R404A", i_json['l_p']) 
+        i_json['Q1'] = count_q(i_json['flow_1'], i_json['t_wy_1'], i_json['t_we_1']) 
+        i_json['Q2'] = count_q(i_json['flow_2'], i_json['t_wy_2'], i_json['t_we_2']) 
+        i_json['CoP'] = count_cop(i_json['Q1'], i_json['Q2'], powers[i]) 
         i_json['date'] = times[i][0]
         i_json['timestamp'] = times[i][1]
         result.append(i_json)
-    return result
+    if csv is None:
+        return jsonify(result)
 
 
 # get_historical_ticker()
-convert_pressure_to_temperature("R404A", 12)
         
 
         
