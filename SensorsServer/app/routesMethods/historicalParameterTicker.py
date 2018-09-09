@@ -12,43 +12,42 @@ from sqlalchemy.exc import OperationalError
 
 from flask import jsonify, send_file
 
-def convert_json_to_list(refrigerant):
+r404a_datasheet = dict(json.load(open('utils/refrigerantsTables/R404A.json')))
+r134a_datasheet = dict(json.load(open('utils/refrigerantsTables/R134A.json')))
+
+def convert_json_to_list(datasheet):
+    result = []
+    pressures = list(datasheet.keys())
+    temperatures = list(datasheet.values())
+    for i in range(len(pressures)):
+        result.append([float(pressures[i]), temperatures[i]])
+    return result
+
+def get_temperature_from_pressure(refrigerant, pressure):
     if refrigerant == "R404A":
-        directory = 'utils/refrigerantsTables/R404A.json'
+        datasheet = convert_json_to_list(r404a_datasheet)
     elif refrigerant == "R134A":
-        directory = 'utils/refrigerantsTables/R134A.json'
+        datasheet = convert_json_to_list(r134a_datasheet)
     else:
         raise AttributeError("The given refrigerant is not supported")
 
-    data_json = dict(json.load(open(directory)))
+    for i in range(len(datasheet)):
+        if i == len(datasheet) -1:
+            raise IndexError("Out of range")
+        pressure_1 = datasheet[i][0]
+        pressure_2 = datasheet[i + 1][0]
 
-    # Convert json to array
-    pressures_list = []
-    for i in range(0, len(data_json.keys()) - 1):
-        row = [float(list(data_json.keys())[i]), float(list(data_json.values())[i])]
-        pressures_list.append(row)
-    return pressures_list
+        if pressure >= pressure_1 and pressure <= pressure_2:
+            x1 = pressure_1
+            x2 = pressure_2
 
-pressures_list = convert_json_to_list("R404A")
-
-def convert_pressure_to_temperature(pressure):  
-
-    for i in range(0, len(pressures_list) - 1):
-        if i == len(pressures_list) - 1:
-            raise AttributeError("Out of range")
-        
-        range_begin = pressures_list[i][0]
-        range_end = pressures_list[i + 1][0]
-
-        if pressure >= range_begin and pressure <= range_end:
-            x1 = range_begin
-            x2 = range_end
-
-            y1 = pressures_list[i][1]
-            y2 = pressures_list[i + 1][1]
+            y1 = datasheet[i][1]
+            y2 = datasheet[i + 1][1]
 
             a = (y2 - y1) / (x2 - x1)
+
             b = (y1 - a * x1)
+
             return a * pressure + b
 
 def count_q(flow, output_temperature, input_temperature): 
@@ -83,7 +82,7 @@ def convert_json_to_csv(json_variable):  # TODO
     json_variable = send_file(
         mem,
         as_attachment=True,
-        attachment_filename='DS18B20.csv',
+        attachment_filename='ticker.csv',
         mimetype='text/csv'
     )
 
@@ -162,8 +161,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):
             i_json[str(sensor)[:-15]] = flows[sensor][i][0]
         # Set power
         i_json['P'] = powers[i][0]
-        i_json['t_con'] = convert_pressure_to_temperature(i_json['h_p']) 
-        i_json['t_env'] = convert_pressure_to_temperature(i_json['l_p']) 
+        i_json['t_con'] = get_temperature_from_pressure("R404A", i_json['h_p']) 
+        i_json['t_env'] = get_temperature_from_pressure("R404A", i_json['l_p']) 
         i_json['Q1'] = count_q(i_json['flow_1'], i_json['t_wy_1'], i_json['t_we_1']) 
         i_json['Q2'] = count_q(i_json['flow_2'], i_json['t_wy_2'], i_json['t_we_2']) 
         i_json['CoP'] = count_cop(i_json['Q1'], i_json['Q2'], powers[i][0]) 
@@ -171,9 +170,11 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json['timestamp'] = times[i][1]
         result.append(i_json)
     if csv is None:
+        print(times[len(times) - 1])
         return jsonify(result)
     else:
         return convert_json_to_csv(result)
+
 
         
 

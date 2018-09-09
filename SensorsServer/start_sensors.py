@@ -9,7 +9,7 @@ from devices.microDpm680.getPowers import get_micro_dpm680_powers_data
 
 from devices.DS18B20.getData import get_ds18b20_data
 from devices.flowMeter.getData import flow_meters
-from devices.QBE2002_P25.get_data import pressure_sensors
+from devices.LinearAnalogDevicesMCP3008.qbe2002_p25 import pressure_sensors
 
 from SqlModeling.microDpm680DatabaseClient import microDpm680_voltage_and_currents_DbClient, microDpm680_powers_DbClient
 from SqlModeling.DS18B20DatabaseClient import ds18b20_DbClient
@@ -21,7 +21,7 @@ measurment_time = json.load(open('config.json'))['MeasurmentTime']
 access_hash = str(json.load(open('config.json'))['AccessHash'])
 
 if not requests.get("http://88.198.250.240:3001/api/" + access_hash).json()['result']:
-    print("Your API key is invalid fuck you...")
+    print("Your API key is invalid")
     exit()
 
 if measurment_time is None:

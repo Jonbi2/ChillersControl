@@ -28,7 +28,7 @@ class FlowMeter:
 
         GPIO.add_event_detect(pin_connected, GPIO.FALLING, callback=self.count_pulse)
 
-    def count_pulse(self, callback):
+    def count_pulse(self):
         self.count = self.count + 1
 
     def start_counting(self):

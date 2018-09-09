@@ -19,7 +19,7 @@ try:
     GPIO.setup(SPIMISO, GPIO.IN)
 except Exception as exception:
     print(exception)
-    print("No GPIO pins have been detected, QBE2002_P25")
+    print("No GPIO pins have been detected, LinearAnalogDevicesMCP3008")
     is_GPIO_recognized = False
 
 # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)

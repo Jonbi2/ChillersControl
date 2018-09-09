@@ -14,7 +14,7 @@ from .routesMethods.historicalParameterTicker import get_historical_ticker
 
 
 @app.route('/getSensors', methods=['GET'])
-def get_sensors():
+def get_sensors(): 
     return fetch_all_sensors()
 
 @app.route('/qbe2002_p25/get_data')

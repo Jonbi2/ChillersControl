@@ -56,7 +56,7 @@ def qbe2002_p25_get_data(device_id=None ,time_range_begin=None, time_range_end=N
         result = send_file(
             mem,
             as_attachment=True,
-            attachment_filename='QBE2002_P25.csv',
+            attachment_filename='LinearAnalogDevicesMCP3008.csv',
             mimetype='text/csv'
         )
 

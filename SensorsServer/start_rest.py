@@ -7,7 +7,7 @@ port = int(json.load(open('config.json'))['Port'])
 access_hash = str(json.load(open('config.json'))['AccessHash'])
 
 if not requests.get("http://88.198.250.240:3001/api/" + access_hash).json()['result']:
-    print("Your API key is invalid fuck you...")
+    print("Your API key is invalid")
     exit()
 
 
