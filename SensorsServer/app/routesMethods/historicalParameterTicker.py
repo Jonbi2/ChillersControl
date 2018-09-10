@@ -149,7 +149,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
 
     # Generate result JSON array
     result = []
-    for i in range(min(results_len) -1, -1, -1):
+    for i in range(min(results_len) - 1, 0, -1):
         i_json = {}
         # Set temperatures
         for sensor in sensors_addresses['Temperatures']:
@@ -173,6 +173,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         if i == min(results_len) - 1:
             print(times[i])
     if csv is None:
+        print(len(times), " ",len(results_len), len(result))
         print(times[len(times) - 1])
         return jsonify(result)
     else:
