@@ -130,7 +130,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         results_len.append(len(flows[sensor]))
     
     # Set timestamp and datetime
-    sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin)
+    sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows'][list(str(sensors_addresses['Flows'][0])]) + '"'
     try:
         times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         print(times[len(times) - 1])
