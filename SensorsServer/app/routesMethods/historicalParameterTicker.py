@@ -133,6 +133,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     sql_query = "SELECT date, timestamp FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin)
     try:
         times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+        print(times[len(times) - 1])
     except OperationalError:
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
