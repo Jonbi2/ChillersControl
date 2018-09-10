@@ -134,6 +134,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     try:
         times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         print(times[len(times) - 1])
+        print(times)
     except OperationalError:
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
