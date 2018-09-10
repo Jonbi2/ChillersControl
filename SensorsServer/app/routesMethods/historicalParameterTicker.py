@@ -130,9 +130,9 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         results_len.append(len(flows[sensor]))
     
     # Set timestamp and datetime
-    sql_query = "SELECT reading FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows']['flow_1_sensor_address']) + '"'
+    sql_query = "SELECT reading FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin) 
     try:
-        times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
+        times = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
         print(times[len(times) - 1])
     except OperationalError:
         time.sleep(0.01)
