@@ -60,7 +60,7 @@ def count_cop(q_1, q_2, power):
     result = (q_1 + q_2) / power
     return result
 
-def convert_json_to_csv(json_variable):  # TODO
+def convert_json_to_csv(json_variable):
     try:
         rows_list = [list(json_variable[0].keys())]
     except IndexError:
@@ -169,6 +169,8 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json['date'] = times[i][0]
         i_json['timestamp'] = times[i][1]
         result.append(i_json)
+        if i == 0:
+            print(times[i])
     if csv is None:
         print(times[len(times) - 1])
         return jsonify(result)
