@@ -169,7 +169,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         i_json['date'] = times[i][0]
         i_json['timestamp'] = times[i][1]
         result.append(i_json)
-        if i == 0:
+        if i == min(results_len) - 1:
             print(times[i])
     if csv is None:
         print(times[len(times) - 1])
