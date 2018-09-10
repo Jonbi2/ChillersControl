@@ -122,7 +122,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     flows = {}
     for sensor in sensors_addresses['Flows']:
         sql_query = "SELECT reading FROM flow_meters_readings WHERE timestamp > " + str(timerange_begin) + " AND sensor_id=" + '"' + str(sensors_addresses['Flows'][sensor]) + '"'
-        print(sensor)
         try:
             flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
@@ -135,7 +134,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     try:
         times = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         print(times[len(times) - 1])
-        print(times)
     except OperationalError:
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
