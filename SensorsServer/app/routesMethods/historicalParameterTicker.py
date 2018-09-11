@@ -147,7 +147,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     try:
         powers = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
     except OperationalError:
-        print("Exception")
+        print("Exception 150")
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
     results_len.append(len(powers))
