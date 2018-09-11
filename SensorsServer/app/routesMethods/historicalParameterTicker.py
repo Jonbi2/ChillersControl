@@ -103,7 +103,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             temperatures[sensor] = list(ds18b20_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception")
+            print("Exception 106")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(temperatures[sensor]))
@@ -115,7 +115,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception")
+            print("Exception 118")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(pressures[sensor]))
@@ -127,7 +127,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception")
+            print("Exception 130")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(flows[sensor]))
@@ -138,7 +138,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         times = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
         print(times[len(times) - 1])
     except OperationalError:
-        print("Exception")
+        print("Exception 141")
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
 
