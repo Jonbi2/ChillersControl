@@ -103,7 +103,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             temperatures[sensor] = list(ds18b20_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception 106")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(temperatures[sensor]))
@@ -115,7 +114,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             pressures[sensor] = list(qbe2002p25_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception 118")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(pressures[sensor]))
@@ -127,7 +125,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         try:
             flows[sensor] = list(flow_meter_DbClient.session.execute(sql_query).fetchall())
         except OperationalError:
-            print("Exception 130")
             time.sleep(0.01)
             return get_historical_ticker(timerange_begin, csv)
         results_len.append(len(flows[sensor]))
@@ -136,9 +133,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     sql_query = "SELECT date, timestamp FROM micro_dpm680_power_readings WHERE timestamp > " + str(timerange_begin) 
     try:
         times = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
-        print(times[len(times) - 1])
     except OperationalError:
-        print("Exception 141")
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
 
@@ -147,7 +142,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     try:
         powers = list(microDpm680_powers_DbClient.session.execute(sql_query).fetchall())
     except OperationalError:
-        print("Exception 150")
         time.sleep(0.01)
         return get_historical_ticker(timerange_begin, csv)
     results_len.append(len(powers))
@@ -178,9 +172,6 @@ def get_historical_ticker(timerange_begin=None, csv=None):
         if i == min(results_len) - 1:
             print(times[i], times[0])
     if csv is None:
-        print(len(times), " ", min(results_len), len(result))
-        print(results_len)
-        print(times[len(times) - 1])
         return jsonify(result)
     else:
         return convert_json_to_csv(result)
