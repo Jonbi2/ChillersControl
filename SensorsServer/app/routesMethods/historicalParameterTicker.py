@@ -95,9 +95,11 @@ def convert_json_to_csv(json_variable):
     return json_variable
 
 
-def get_historical_ticker(timerange_begin=None, csv=None):
+def get_historical_ticker(timerange_begin=None, timerange_end=None, csv=None):
     if timerange_begin is None:
         timerange_begin = time.time() - 24 * 60 * 60
+    if timerange_end is None:
+        timerange_end = time.time()
 
     sensors_addresses = json.load(open('config.json'))[
         'parameterTickerEndpointConfiguration']
@@ -108,7 +110,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
 
     for sensor in sensors_addresses['Temperatures']:
         sql_query = "SELECT reading FROM ds18b20_readings WHERE timestamp > " + \
-            str(timerange_begin) + " AND sensor_id=" + '"' + \
+            str(timerange_begin) + " AND timestamp < " + str(timerange_end) " AND sensor_id=" + '"' + \
             sensors_addresses['Temperatures'][sensor] + '"'
         try:
             temperatures[sensor] = list(
@@ -122,7 +124,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     pressures = {}
     for sensor in sensors_addresses['Pressures']:
         sql_query = "SELECT reading FROM qbe2002p25_readings WHERE timestamp > " + \
-            str(timerange_begin) + " AND sensor_id=" + '"' + \
+            str(timerange_begin) + " AND timestamp < " + str(timerange_end) + " AND sensor_id=" + '"' + \
             str(sensors_addresses['Pressures'][sensor]) + '"'
         try:
             pressures[sensor] = list(
@@ -136,7 +138,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
     flows = {}
     for sensor in sensors_addresses['Flows']:
         sql_query = "SELECT reading FROM flow_meters_readings WHERE timestamp > " + \
-            str(timerange_begin) + " AND sensor_id=" + '"' + \
+            str(timerange_begin) + "AND timestamp < " + str(timerange_end) + " AND sensor_id=" + '"' + \
             str(sensors_addresses['Flows'][sensor]) + '"'
         try:
             flows[sensor] = list(
@@ -148,7 +150,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
 
     # Set timestamp and datetime
     sql_query = "SELECT date, timestamp FROM micro_dpm680_power_readings WHERE timestamp > " + \
-        str(timerange_begin)
+        str(timerange_begin) + " AND timestamp < " + str(timerange_end)
     try:
         times = list(microDpm680_powers_DbClient.session.execute(
             sql_query).fetchall())
@@ -158,7 +160,7 @@ def get_historical_ticker(timerange_begin=None, csv=None):
 
     # Set powers
     sql_query = "SELECT P4 FROM micro_dpm680_power_readings WHERE timestamp > " + \
-        str(timerange_begin)
+        str(timerange_begin) + " AND timestamp < " + str(timerange_end)
     try:
         powers = list(microDpm680_powers_DbClient.session.execute(
             sql_query).fetchall())

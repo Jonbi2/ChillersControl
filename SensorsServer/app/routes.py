@@ -1,5 +1,5 @@
 from flask_restful import Resource, Api
-from flask import request
+from flask import request, jsonify
 
 from . import app
 
@@ -11,6 +11,9 @@ from .routesMethods.parametersTicker import get_parameters_ticker
 from .routesMethods.flowMeter import flow_meter_get_data
 from .routesMethods.QBE2002_P25 import qbe2002_p25_get_data
 from .routesMethods.historicalParameterTicker import get_historical_ticker
+
+import time
+import datetime
 
 
 @app.route('/getSensors', methods=['GET'])
@@ -89,8 +92,22 @@ def parameters_ticker():
 @app.route('/ticker.json', methods=['GET'])
 def ticker():
     time_range_begin = request.args.get('time_range_begin')
+    time_range_end = request.args.get('time_range_end')
+
+    if time_range_begin is not None and type(time_range_begin) is str: 
+        try:
+            time_range_begin = time.mktime(datetime.datetime.strptime(time_range_begin, "%d/%m/%Y").timetuple())
+        except ValueError:
+            return jsonify({"error": True, "message": "The given data format is invalid"})
+
+    if time_range_end is not None and type(time_range_end) is str: 
+        try:
+            time_begin_end = time.mktime(datetime.datetime.strptime(time_begin_end, "%d/%m/%Y").timetuple())
+        except ValueError:
+            return jsonify({"error": True, "message": "The given data format is invalid"})
+
     csv = request.args.get('csv')
     if csv is not None:
         csv = True 
 
-    return get_historical_ticker(time_range_begin, csv)
+    return get_historical_ticker(time_range_begin, time_range_end, csv)
