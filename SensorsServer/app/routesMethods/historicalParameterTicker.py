@@ -109,9 +109,8 @@ def get_historical_ticker(timerange_begin=None, timerange_end=None, csv=None):
     temperatures = {}
 
     for sensor in sensors_addresses['Temperatures']:
-        sql_query = "SELECT reading FROM ds18b20_readings WHERE timestamp > " + \
-            str(timerange_begin) + " AND timestamp < " + str(timerange_end) " AND sensor_id=" + '"' + \
-            sensors_addresses['Temperatures'][sensor] + '"'
+        sql_query = "SELECT reading FROM ds18b20_readings WHERE timestamp > " + str(timerange_begin) + " AND timestamp < " + str(
+            timerange_end) + " AND sensor_id=" + '"' + sensors_addresses['Temperatures'][sensor] + '"'
         try:
             temperatures[sensor] = list(
                 ds18b20_DbClient.session.execute(sql_query).fetchall())

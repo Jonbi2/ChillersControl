@@ -23,6 +23,7 @@ pip3 install flask_restful
 pip3 install multitasking
 pip3 install w1thermsensor
 pip3 install flask_cors
+pip3 install RPi.GPIO
 sudo pip3 install RPi.GPIO
 
 cd setupScripts/
